@@ -31,7 +31,6 @@ void Financeiro::cadastrarCliente(Cliente &cliente) {
     this->clientes.push_back(cliente);
 }
 
-// TODO: Add UC
 void Financeiro::cadastrarUC(Cliente &clienteToInsert, UC &uc) {
     for (Cliente cliente : this->clientes) {
         if (cliente.getIdCliente() == clienteToInsert.getIdCliente()) {
