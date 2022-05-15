@@ -8,16 +8,19 @@
 #include <string>
 #include <vector>
 
-class PessoaFisica : public Cliente{
+class PessoaFisica : public Cliente {
+    std::string CPF;
+
 public:
     PessoaFisica(std::string &cpf);
 
     PessoaFisica();
-    // The class
-public:             // Access specifier
-    std::string CPF;  // Attribute (string variable)
 
     static bool validarCPF(std::string CPF);
+
+    const std::string &getCpf() const;
+
+    void setCpf(const std::string &cpf);
 };
 
 #endif //MODULO1_PESSOAFISICA_H

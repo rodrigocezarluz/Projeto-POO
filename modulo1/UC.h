@@ -5,28 +5,22 @@
 #ifndef MODULO1_UC_H
 #define MODULO1_UC_H
 
-#include "TipoUC.h"
 #include "Fatura.h"
 #include <vector>
 
 class UC {
 private:
     int idUC;
-    TipoUC tipo;
     std::vector<Fatura> faturas;
 
 public:
     UC();
 
-    UC(int idUc, TipoUC tipo, std::vector<Fatura> &faturas);
+    UC(int idUc, const std::vector<Fatura> &faturas);
 
     int getIdUc() const;
 
     void setIdUc(int idUc);
-
-    TipoUC getTipo() const;
-
-    void setTipo(TipoUC tipo);
 
     std::vector<Fatura> & getFaturas();
 
@@ -34,5 +28,6 @@ public:
 
     std::vector<Fatura> verificarPagamento();
 
+    void addFatura(Fatura &fatura);
 };
 #endif //MODULO1_UC_H

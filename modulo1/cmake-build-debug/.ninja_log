@@ -1,3 +1,24 @@
 # ninja log v5
-0	339	1652307152015367253	CMakeFiles/modulo1.dir/main.cpp.o	fc2a8c9fd00b95e3
 340	369	1652307152046318356	modulo1	e6eeb0c0a58233ae
+0	339	1652307152015367253	CMakeFiles/modulo1.dir/main.cpp.o	fc2a8c9fd00b95e3
+0	54	1652643058032241423	build.ninja	82c8e61b0f97c1d4
+6	176	1652643058216144904	CMakeFiles/modulo1.dir/Fatura.cpp.o	be8b2d3c54e3ac1a
+9	825	1652643058863848457	CMakeFiles/modulo1.dir/UCResidencial.cpp.o	3ead1647e04adf39
+10	843	1652643058871587114	CMakeFiles/modulo1.dir/UCIndustrial.cpp.o	dd17c16746745ca9
+177	861	1652643058902167776	CMakeFiles/modulo1.dir/UCIluminacaoPublica.cpp.o	dbc2f9a767d01db2
+13	875	1652643058910252857	CMakeFiles/modulo1.dir/UCComercial.cpp.o	49f04f0654e6b31d
+4	953	1652643058991903638	CMakeFiles/modulo1.dir/PessoaJuridica.cpp.o	255359be8060d953
+3	969	1652643059008754563	CMakeFiles/modulo1.dir/PessoaFisica.cpp.o	f5fdd5c1784425ca
+2	1019	1652643059058493322	CMakeFiles/modulo1.dir/main.cpp.o	9c47dea7e87a7dbe
+4	434	1652643102084828765	CMakeFiles/modulo1.dir/UCComercial.cpp.o	49f04f0654e6b31d
+3	441	1652643102093180059	CMakeFiles/modulo1.dir/UCResidencial.cpp.o	3ead1647e04adf39
+3	469	1652643102121237878	CMakeFiles/modulo1.dir/UCIndustrial.cpp.o	dd17c16746745ca9
+6	491	1652643102142446142	CMakeFiles/modulo1.dir/UCIluminacaoPublica.cpp.o	dbc2f9a767d01db2
+3	503	1652643102154713515	CMakeFiles/modulo1.dir/UC.cpp.o	41f7f0d45afb8d02
+2	522	1652643102173067221	CMakeFiles/modulo1.dir/PessoaFisica.cpp.o	f5fdd5c1784425ca
+2	532	1652643102184253948	CMakeFiles/modulo1.dir/PessoaJuridica.cpp.o	255359be8060d953
+2	354	1652643131007077581	CMakeFiles/modulo1.dir/PessoaJuridica.cpp.o	255359be8060d953
+2	363	1652643131016621816	CMakeFiles/modulo1.dir/PessoaFisica.cpp.o	f5fdd5c1784425ca
+2	416	1652643131069487139	CMakeFiles/modulo1.dir/Cliente.cpp.o	1b422d395e87a08e
+1	422	1652643156015318092	CMakeFiles/modulo1.dir/Financeiro.cpp.o	686a32376c917e5f
+422	463	1652643156058016042	modulo1	650584c24e900135

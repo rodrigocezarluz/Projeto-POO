@@ -31,30 +31,30 @@ void Financeiro::cadastrarCliente(Cliente &cliente) {
     this->clientes.push_back(cliente);
 }
 
+// TODO: Add UC
 void Financeiro::cadastrarUC(Cliente &clienteToInsert, UC &uc) {
     for (Cliente cliente : this->clientes) {
         if (cliente.getIdCliente() == clienteToInsert.getIdCliente()) {
-            cliente.getUCs().push_back(uc);
+            cliente.addUC(uc);
             return;
         }
+    }
+    throw std::invalid_argument("O cliente da UC nao existe.");
+}
+
+
+void Financeiro::cadastrarFaturas(int idCliente, int idUC, Fatura& fatura) {
+
+    for (Cliente cliente : this->clientes) {
+        if (cliente.getIdCliente() != idCliente) {
+            continue;
+        }
+        cliente.addFatura(idUC, fatura);
+
     }
     throw std::invalid_argument( "O cliente da UC nao existe." );
 }
 
-
-void Financeiro::cadastrarFaturas(Cliente &clienteToInsert, UC &ucToInsert, Fatura& fatura) {
-    for (Cliente cliente : this->clientes) {
-        if (cliente.getIdCliente() != clienteToInsert.getIdCliente()) {
-            continue;
-        }
-        for (UC uc : cliente.getUCs()) {
-            if (uc.getIdUc() != ucToInsert.getIdUc()) {
-                continue;
-            }
-            uc.getFaturas().push_back(fatura);
-        }
-
-        throw std::invalid_argument( "A UC informada nao existe para o cliente informado." );
-    }
-    throw std::invalid_argument( "O cliente da UC nao existe." );
+void Financeiro::verificarInadimplentes() {
+ // TODO: implementar
 }

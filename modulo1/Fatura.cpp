@@ -10,7 +10,7 @@ Fatura::Fatura() {}
 
 Fatura::Fatura(int idFatura, double valorInicial, double consumoEnergia, time_t dtVencimento, time_t dtPagamento,
                time_t dtEmissão) : idFatura(idFatura), valorInicial(valorInicial), consumoEnergia(consumoEnergia),
-                                   dtVencimento(dtVencimento), dtPagamento(dtPagamento), dtEmissão(dtEmissão) {};
+                                   dtVencimento(dtVencimento), dtPagamento(dtPagamento), dtEmissao(dtEmissão) {};
 
 int Fatura::getIdFatura() const {
     return idFatura;
@@ -52,27 +52,28 @@ void Fatura::setDtPagamento(time_t dtPagamento) {
     Fatura::dtPagamento = dtPagamento;
 }
 
-time_t Fatura::getDtEmissão() const {
-    return dtEmissão;
+time_t Fatura::getDtEmissao() const {
+    return dtEmissao;
 }
 
-void Fatura::setDtEmissão(time_t dtEmissão) {
-    Fatura::dtEmissão = dtEmissão;
+void Fatura::setDtEmissao(time_t dtEmissao) {
+    Fatura::dtEmissao = dtEmissao;
 }
 
+//TODO: ver taxa de juros.
 double Fatura::calcularValor() {
     time_t now = time(0);
     double diasVencidos = std::floor(difftime(this->dtVencimento, now) / ((1000.0 / 3600.0) / 24.0));
 
     if (diasVencidos > 0) {
-        return valorInicial * (diasVencidos * TAXA_JUROS);
+        return valorInicial * pow(TAXA_JUROS,  diasVencidos);
     }
 
     return valorInicial;
 }
 
 bool Fatura::verificarPagamento() {
-    return dtPagamento = 0.0;
+    return dtPagamento == 0.0;
 }
 
 

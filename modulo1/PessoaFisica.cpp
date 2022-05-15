@@ -10,6 +10,14 @@ PessoaFisica::PessoaFisica() = default;
 
 PessoaFisica::PessoaFisica(std::string &cpf) : CPF(cpf) {}
 
+const std::string &PessoaFisica::getCpf() const {
+    return CPF;
+}
+
+void PessoaFisica::setCpf(const std::string &cpf) {
+    CPF = cpf;
+}
+
 bool PessoaFisica::validarCPF(std::string CPF) {
     return false;
 }

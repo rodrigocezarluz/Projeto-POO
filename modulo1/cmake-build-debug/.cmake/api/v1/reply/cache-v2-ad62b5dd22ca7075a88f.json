@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/thalesgsn/Projects/Projeto-POO/cmake-build-debug"
+			"value" : "/Users/thalesgsn/Projects/Projeto-POO/modulo1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/thalesgsn/Projects/Projeto-POO"
+			"value" : "/Users/thalesgsn/Projects/Projeto-POO/modulo1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/thalesgsn/Projects/Projeto-POO/cmake-build-debug"
+			"value" : "/Users/thalesgsn/Projects/Projeto-POO/modulo1/cmake-build-debug"
 		},
 		{
 			"name" : "modulo1_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/thalesgsn/Projects/Projeto-POO"
+			"value" : "/Users/thalesgsn/Projects/Projeto-POO/modulo1"
 		}
 	],
 	"kind" : "cache",

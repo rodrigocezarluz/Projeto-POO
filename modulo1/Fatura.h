@@ -12,12 +12,12 @@ class Fatura {
     double consumoEnergia;
     std::time_t dtVencimento;
     std::time_t dtPagamento;
-    std::time_t dtEmissão;
+    std::time_t dtEmissao;
 public:
     Fatura();
 
     Fatura(int idFatura, double valorInicial, double consumoEnergia, time_t dtVencimento, time_t dtPagamento,
-           time_t dtEmissão);
+           time_t dtEmissao);
 
     int getIdFatura() const;
 
@@ -39,9 +39,9 @@ public:
 
     void setDtPagamento(time_t dtPagamento);
 
-    time_t getDtEmissão() const;
+    time_t getDtEmissao() const;
 
-    void setDtEmissão(time_t dtEmissão);
+    void setDtEmissao(time_t dtEmissao);
 
     double calcularValor();
 

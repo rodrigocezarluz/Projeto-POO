@@ -7,7 +7,7 @@
 
 UC::UC() {}
 
-UC::UC(int idUc, TipoUC tipo, std::vector<Fatura> &faturas) : idUC(idUc), tipo(tipo), faturas(faturas) {}
+UC::UC(int idUc, const std::vector<Fatura> &faturas) : idUC(idUc), faturas(faturas) {}
 
 int UC::getIdUc() const {
     return idUC;
@@ -15,14 +15,6 @@ int UC::getIdUc() const {
 
 void UC::setIdUc(int idUc) {
     idUC = idUc;
-}
-
-TipoUC UC::getTipo() const {
-    return tipo;
-}
-
-void UC::setTipo(TipoUC tipo) {
-    UC::tipo = tipo;
 }
 
 std::vector<Fatura> &UC::getFaturas() {
@@ -41,6 +33,12 @@ std::vector<Fatura> UC::verificarPagamento() {
     });
 
     return faturasVencidas;
+}
+
+void UC::addFatura(Fatura &fatura) {
+    // TODO: Implementar
+
+    this->faturas.push_back(fatura);
 }
 
 

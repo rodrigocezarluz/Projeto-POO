@@ -57,5 +57,20 @@ std::vector<Fatura> Cliente::verificarPagamento() {
     return faturas;
 }
 
+void Cliente::addUC(UC &uc) {
+    // TODO: implementar
+}
+
+void Cliente::addFatura(int idUC, Fatura &fatura) {
+    // implementar
+    for (UC uc : this->UCs) {
+        if (uc.getIdUc() != idUC) {
+            continue;
+        }
+        uc.addFatura(fatura);
+
+    }
+}
+
 
 

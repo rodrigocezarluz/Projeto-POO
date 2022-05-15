@@ -9,8 +9,8 @@
 #include "UC.h"
 
 class Cliente {
-    int idCliente;        // Attribute (int variable)
-    std::string nome;  // Attribute (string variable)
+    int idCliente;
+    std::string nome;
     std::vector<UC> UCs;
 public:
     Cliente();
@@ -33,5 +33,10 @@ public:
     std::vector<UC> &getUCs();
 
     void setUCs(const std::vector<UC> &uCs);
+
+    //TODO: Adicionar metodos para adicao/remocao de UCs
+    void addUC(UC &uc);
+
+    void addFatura(int idUC, Fatura &fatura);
 };
 #endif //MODULO1_CLIENTE_H

@@ -11,6 +11,7 @@
 class Financeiro {
     std::map<int, std::vector<int>> relatorioInandimplentes = {};
     std::vector<Cliente> clientes;
+
 public:
     Financeiro();
 
@@ -28,8 +29,8 @@ public:
 
     void cadastrarUC(Cliente &clienteToInsert, UC &uc);
 
-    void cadastrarFaturas(Cliente &clienteToInsert, UC &ucToInsert, Fatura &fatura);
+    void cadastrarFaturas(int idCliente, int idUC, Fatura &fatura);
 
-
+    void verificarInadimplentes();
 };
 #endif //MODULO1_FINANCEIRO_H
