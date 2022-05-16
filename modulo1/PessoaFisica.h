@@ -16,7 +16,7 @@ public:
 
     PessoaFisica();
 
-    static bool validarCPF(std::string CPF);
+    bool validarCPF(std::string cpf_);
 
     const std::string &getCpf() const;
 

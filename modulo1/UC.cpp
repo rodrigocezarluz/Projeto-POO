@@ -26,20 +26,37 @@ void UC::setFaturas(std::vector<Fatura> &faturas) {
 }
 
 std::vector<Fatura> UC::verificarPagamento() {
+    std::vector<Fatura> faturasApagar;
+
+    for (Fatura fat : this->faturas) {
+        if (!fat.verificarPagamento()) {
+            faturasApagar.push_back(fat);
+        }
+    }
+    return faturasApagar;
+}
+
+std::vector<Fatura> UC::verificarVencimento(time_t now) {
     std::vector<Fatura> faturasVencidas;
 
-    std::copy_if (this->faturas.begin(), this->faturas.end(), std::back_inserter(faturasVencidas), [](Fatura fatura){
-        return !fatura.verificarPagamento();
-    });
-
+    for (Fatura fat : this->faturas) {
+        if (!fat.verificarPagamento() && now > fat.getDtVencimento()) {
+            faturasVencidas.push_back(fat);
+        }
+    }
     return faturasVencidas;
 }
 
-void UC::addFatura(Fatura &fatura) {
-    // TODO: Implementar
-
-    this->faturas.push_back(fatura);
+void UC::addFatura(Fatura &new_fatura) {
+    for (Fatura fat : this->faturas) {
+        if (fat == new_fatura) {
+            throw std::runtime_error("Repeated Fatura id");
+        }
+    }
+    faturas.push_back(new_fatura);
 }
 
-
+bool UC::operator==(const UC& other) {
+  return this->idUC == other.getIdUc();
+}
 

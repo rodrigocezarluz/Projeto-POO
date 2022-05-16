@@ -7,6 +7,7 @@
 
 #include "Fatura.h"
 #include <vector>
+#include <stdexcept>
 
 class UC {
 private:
@@ -28,6 +29,10 @@ public:
 
     std::vector<Fatura> verificarPagamento();
 
+    std::vector<Fatura> verificarVencimento(time_t now);
+
     void addFatura(Fatura &fatura);
+
+    bool operator==(const UC& other);
 };
 #endif //MODULO1_UC_H

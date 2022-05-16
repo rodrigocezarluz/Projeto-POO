@@ -4,21 +4,24 @@
 
 #ifndef MODULO1_PESSOAJURIDICA_H
 #define MODULO1_PESSOAJURIDICA_H
+#include "Cliente.h"
 #include <string>
 #include <vector>
-#include "Cliente.h"
 
 class PessoaJuridica : public Cliente {
     std::string CNPJ;
 
 public:
-    PessoaJuridica(const std::string &cnpj);
+    PessoaJuridica(std::string &cnpj);
+
+    PessoaJuridica();
+
+    bool validarCNPJ(std::string cnpj_);
 
     const std::string &getCnpj() const;
 
     void setCnpj(const std::string &cnpj);
-
-    // TODO: Escrever metodo de validacao de CNPJ
 };
+
 #endif //MODULO1_PESSOAJURIDICA_H
 

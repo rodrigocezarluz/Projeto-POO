@@ -9,17 +9,17 @@
 #include "Cliente.h"
 
 class Financeiro {
-    std::map<int, std::vector<int>> relatorioInandimplentes = {};
+    std::map<int, std::vector<Fatura>> relatorioInandimplentes = {};
     std::vector<Cliente> clientes;
 
 public:
     Financeiro();
 
-    Financeiro(const std::map<int, std::vector<int>> &relatorioInandimplentes, const std::vector<Cliente> &clientes);
+    Financeiro(const std::map<int, std::vector<Fatura>> &relatorioInandimplentes, const std::vector<Cliente> &clientes);
 
-    const std::map<int, std::vector<int>> &getRelatorioInandimplentes() const;
+    const std::map<int, std::vector<Fatura>> &getRelatorioInandimplentes() const;
 
-    void setRelatorioInandimplentes(const std::map<int, std::vector<int>> &relatorioInandimplentes);
+    void setRelatorioInandimplentes(const std::map<int, std::vector<Fatura>> &relatorioInandimplentes);
 
     const std::vector<Cliente> &getClientes() const;
 
@@ -31,6 +31,6 @@ public:
 
     void cadastrarFaturas(int idCliente, int idUC, Fatura &fatura);
 
-    void verificarInadimplentes();
+    void verificarInadimplentes(time_t now);
 };
 #endif //MODULO1_FINANCEIRO_H

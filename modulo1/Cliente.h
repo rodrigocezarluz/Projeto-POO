@@ -6,6 +6,8 @@
 #define MODULO1_CLIENTE_H
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <stdexcept>
 #include "UC.h"
 
 class Cliente {
@@ -30,13 +32,18 @@ public:
 
     std::vector<Fatura> verificarPagamento();
 
+    std::vector<Fatura> verificarVencimento(time_t now);
+
     std::vector<UC> &getUCs();
 
     void setUCs(const std::vector<UC> &uCs);
 
-    //TODO: Adicionar metodos para adicao/remocao de UCs
-    void addUC(UC &uc);
+    void addUC(UC &new_uc);
+
+    void removeUC(UC &remove_uc);
 
     void addFatura(int idUC, Fatura &fatura);
+
+    bool operator==(const Cliente& other);
 };
 #endif //MODULO1_CLIENTE_H

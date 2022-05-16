@@ -5,14 +5,18 @@
 #ifndef MODULO1_FATURA_H
 #define MODULO1_FATURA_H
 #include <ctime>
+#include <stdexcept>
+#include <algorithm>
+#include <cmath>
+#include "utils.h"
 
 class Fatura {
     int idFatura;
     double valorInicial;
     double consumoEnergia;
-    std::time_t dtVencimento;
-    std::time_t dtPagamento;
-    std::time_t dtEmissao;
+    time_t dtVencimento;
+    time_t dtPagamento;
+    time_t dtEmissao;
 public:
     Fatura();
 
@@ -43,9 +47,11 @@ public:
 
     void setDtEmissao(time_t dtEmissao);
 
-    double calcularValor();
+    double calcularValor(time_t now);
 
     bool verificarPagamento();
+
+    bool operator==(const Fatura& other);
 
 };
 

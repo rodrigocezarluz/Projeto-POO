@@ -7,15 +7,15 @@
 
 Financeiro::Financeiro() {}
 
-Financeiro::Financeiro(const std::map<int, std::vector<int>> &relatorioInandimplentes,
+Financeiro::Financeiro(const std::map<int, std::vector<Fatura>> &relatorioInandimplentes,
                        const std::vector<Cliente> &clientes) : relatorioInandimplentes(relatorioInandimplentes),
                                                                clientes(clientes) {};
 
-const std::map<int, std::vector<int>> &Financeiro::getRelatorioInandimplentes() const {
+const std::map<int, std::vector<Fatura>> &Financeiro::getRelatorioInandimplentes() const {
     return relatorioInandimplentes;
 }
 
-void Financeiro::setRelatorioInandimplentes(const std::map<int, std::vector<int>> &relatorioInandimplentes) {
+void Financeiro::setRelatorioInandimplentes(const std::map<int, std::vector<Fatura>> &relatorioInandimplentes) {
     Financeiro::relatorioInandimplentes = relatorioInandimplentes;
 }
 
@@ -54,6 +54,12 @@ void Financeiro::cadastrarFaturas(int idCliente, int idUC, Fatura& fatura) {
     throw std::invalid_argument( "O cliente da UC nao existe." );
 }
 
-void Financeiro::verificarInadimplentes() {
- // TODO: implementar
+void Financeiro::verificarInadimplentes(time_t now) {
+    relatorioInandimplentes.clear();
+    for (Cliente cliente : this->clientes) {
+        std::vector<Fatura> faturasVencidas = cliente.verificarVencimento(now);
+        if (faturasVencidas.size() > 0) {
+                relatorioInandimplentes[cliente.getIdCliente()] = faturasVencidas;
+        }
+    }
 }
