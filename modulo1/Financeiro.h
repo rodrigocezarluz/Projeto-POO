@@ -27,10 +27,10 @@ public:
 
     void cadastrarCliente(Cliente &cliente);
 
-    void cadastrarUC(Cliente &clienteToInsert, UC &uc);
+    void cadastrarUC(const int &clienteToInsert, UC &uc);
 
     void cadastrarFaturas(int idCliente, int idUC, Fatura &fatura);
 
-    void verificarInadimplentes(time_t now);
+    void verificarInadimplentes(const time_t &now);
 };
 #endif //MODULO1_FINANCEIRO_H

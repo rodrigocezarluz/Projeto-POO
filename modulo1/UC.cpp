@@ -5,24 +5,28 @@
 #include "UC.h"
 #include "Fatura.h"
 
-UC::UC() {}
+int UC::nextIdUC = 0;
 
-UC::UC(int idUc, const std::vector<Fatura> &faturas) : idUC(idUc), faturas(faturas) {}
+UC::UC() : idUC(nextIdUC++) {}
+
+UC::UC(const std::vector<Fatura> &faturas) : idUC(nextIdUC++), faturas(faturas) {}
+
+UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas) {}
 
 int UC::getIdUc() const {
     return idUC;
 }
 
 void UC::setIdUc(int idUc) {
-    idUC = idUc;
+    this->idUC = idUc;
 }
 
-std::vector<Fatura> &UC::getFaturas() {
+std::vector<Fatura> const & UC::getFaturas() const{
     return faturas;
 }
 
 void UC::setFaturas(std::vector<Fatura> &faturas) {
-    UC::faturas = std::move(faturas);
+    this->faturas = std::move(faturas);
 }
 
 std::vector<Fatura> UC::verificarPagamento() {
@@ -36,7 +40,7 @@ std::vector<Fatura> UC::verificarPagamento() {
     return faturasApagar;
 }
 
-std::vector<Fatura> UC::verificarVencimento(time_t now) {
+std::vector<Fatura> UC::verificarVencimento(const time_t &now) {
     std::vector<Fatura> faturasVencidas;
 
     for (Fatura fat : this->faturas) {
@@ -60,3 +64,9 @@ bool UC::operator==(const UC& other) {
   return this->idUC == other.getIdUc();
 }
 
+UC& UC::operator=(const UC& other) {
+    this->idUC = other.getIdUc();
+    this->faturas = other.getFaturas();
+
+    return *this;
+}

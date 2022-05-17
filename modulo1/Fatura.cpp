@@ -5,11 +5,17 @@
 #include "Fatura.h"
 
 const double TAXA_JUROS = 1.02;
-Fatura::Fatura() {}
 
-Fatura::Fatura(int idFatura, double valorInicial, double consumoEnergia, time_t dtVencimento, time_t dtPagamento,
-               time_t dtEmissao) : idFatura(idFatura), valorInicial(valorInicial), consumoEnergia(consumoEnergia),
-                                   dtVencimento(dtVencimento), dtPagamento(dtPagamento), dtEmissao(dtEmissao) {};
+int Fatura::nextIdFatura = 0;
+
+Fatura::Fatura() : idFatura(nextIdFatura++), dtPagamento(0) {}
+
+Fatura::Fatura(const double valorInicial, const double consumoEnergia, const time_t dtVencimento, const time_t dtPagamento,
+               const time_t dtEmissao) : idFatura(nextIdFatura++), valorInicial(valorInicial), consumoEnergia(consumoEnergia),
+                                   dtVencimento(dtVencimento), dtPagamento(dtPagamento), dtEmissao(dtEmissao) {}
+
+Fatura::Fatura(const Fatura& f) : idFatura(f.idFatura), valorInicial(f.valorInicial), consumoEnergia(f.consumoEnergia),
+                                   dtVencimento(f.dtVencimento), dtPagamento(f.dtPagamento), dtEmissao(f.dtEmissao)  {}
 
 int Fatura::getIdFatura() const {
     return idFatura;
@@ -77,3 +83,13 @@ bool Fatura::operator==(const Fatura& other) {
   return this->idFatura == other.getIdFatura();
 }
 
+Fatura& Fatura::operator=(const Fatura& other) {
+    this->idFatura = other.getIdFatura();
+    this->valorInicial = other.getValorInicial();
+    this->consumoEnergia = other.getConsumoEnergia();
+    this->dtVencimento = other.getDtVencimento();
+    this->dtPagamento = other.getDtPagamento();
+    this->dtEmissao = other.getDtEmissao();
+
+    return *this;
+}

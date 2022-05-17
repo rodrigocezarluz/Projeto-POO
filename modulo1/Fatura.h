@@ -11,6 +11,8 @@
 #include "utils.h"
 
 class Fatura {
+private:
+    static int nextIdFatura;
     int idFatura;
     double valorInicial;
     double consumoEnergia;
@@ -20,8 +22,9 @@ class Fatura {
 public:
     Fatura();
 
-    Fatura(int idFatura, double valorInicial, double consumoEnergia, time_t dtVencimento, time_t dtPagamento,
-           time_t dtEmissao);
+    Fatura(const double valorInicial, const double consumoEnergia, const time_t dtVencimento, const time_t dtPagamento, const time_t dtEmissao);
+
+    Fatura(const Fatura& f);
 
     int getIdFatura() const;
 
@@ -52,6 +55,8 @@ public:
     bool verificarPagamento();
 
     bool operator==(const Fatura& other);
+
+    Fatura& operator=(const Fatura& other);
 
 };
 

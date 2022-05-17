@@ -11,28 +11,33 @@
 
 class UC {
 private:
+    static int nextIdUC;
     int idUC;
     std::vector<Fatura> faturas;
 
 public:
     UC();
 
-    UC(int idUc, const std::vector<Fatura> &faturas);
+    UC(const std::vector<Fatura> &faturas);
+
+    UC(const UC& uc);
 
     int getIdUc() const;
 
     void setIdUc(int idUc);
 
-    std::vector<Fatura> & getFaturas();
+    std::vector<Fatura> const & getFaturas() const;
 
     void setFaturas(std::vector<Fatura> &faturas);
 
     std::vector<Fatura> verificarPagamento();
 
-    std::vector<Fatura> verificarVencimento(time_t now);
+    std::vector<Fatura> verificarVencimento(const time_t &now);
 
     void addFatura(Fatura &fatura);
 
     bool operator==(const UC& other);
+
+    UC& operator=(const UC& other);
 };
 #endif //MODULO1_UC_H

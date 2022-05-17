@@ -17,8 +17,6 @@ const std::string &PessoaJuridica::getCnpj() const {
 void PessoaJuridica::setCnpj(const std::string &cnpj) {
     CNPJ = cnpj;
 }
-//TODO validarCNPJ
-// 14 digitos, verifica 2 ultimos
 
 bool PessoaJuridica::validarCNPJ(std::string cnpj_) {
     if (cnpj_.size() != 14) {

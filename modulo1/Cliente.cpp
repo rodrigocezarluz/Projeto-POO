@@ -1,37 +1,39 @@
 #include "Cliente.h"
-#include <vector>
-#include <stdexcept>
+
 //
 // Created by Thales Nunes on 5/11/22.
 //
 
-Cliente::Cliente() {}
+int Cliente::nextIdCliente = 0;
 
-Cliente::Cliente(int idCliente, const std::string &nome, const std::vector<UC> &uCs) : idCliente(idCliente), nome(nome),
-                                                                                       UCs(uCs) {}
+Cliente::Cliente() : idCliente(nextIdCliente++) {}
+
+Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : idCliente(nextIdCliente++), nome(nome), UCs(uCs) {}
+
+Cliente::Cliente(const Cliente& c) : idCliente(c.idCliente), nome(c.nome), UCs(c.UCs) {}
 
 int Cliente::getIdCliente() const {
     return idCliente;
 }
 
-void Cliente::setIdCliente(int idCliente) {
-    Cliente::idCliente = idCliente;
+void Cliente::setIdCliente(const int &idCliente) {
+    this->idCliente = idCliente;
 }
 
-const std::string &Cliente::getNome() const {
+std::string Cliente::getNome() const {
     return nome;
 }
 
 void Cliente::setNome(const std::string &nome) {
-    Cliente::nome = nome;
+    this->nome = nome;
 }
 
-std::vector<UC> &Cliente::getUCs() {
+std::vector<UC> const &Cliente::getUCs() const {
     return UCs;
 }
 
-void Cliente::setUCs(const std::vector<UC> &uCs) {
-    UCs = uCs;
+void Cliente::setUCs(std::vector<UC> &uCs) {
+    this->UCs = std::move(uCs);
 }
 
 void Cliente::addUC(UC &new_uc) {
@@ -54,11 +56,11 @@ void Cliente::removeUC(UC &remove_uc) {
     }
 }
 
-void Cliente::pagar(Fatura& faturaAPagar) {
+void Cliente::pagar(Fatura& faturaAPagar, const time_t &dtPagamento) {
     for (UC uc : this->UCs) {
         for (Fatura fatura: uc.getFaturas()) {
-            if(fatura.getIdFatura() == faturaAPagar.getIdFatura()) {
-                fatura.setDtPagamento(time(nullptr));
+            if(fatura == faturaAPagar) {
+                fatura.setDtPagamento(dtPagamento);
                 return;
             }
         }
@@ -77,7 +79,7 @@ std::vector<Fatura> Cliente::verificarPagamento() {
     return faturas;
 }
 
-std::vector<Fatura> Cliente::verificarVencimento(time_t now) {
+std::vector<Fatura> Cliente::verificarVencimento(const time_t &now) {
     std::vector<Fatura> faturas;
 
     for (UC uc : this->UCs) {
@@ -90,7 +92,6 @@ std::vector<Fatura> Cliente::verificarVencimento(time_t now) {
 
 
 void Cliente::addFatura(int idUC, Fatura &fatura) {
-    // implementar
     for (UC uc : this->UCs) {
         if (uc.getIdUc() != idUC) {
             continue;
@@ -104,3 +105,10 @@ bool Cliente::operator==(const Cliente& other) {
   return this->idCliente == other.getIdCliente();
 }
 
+Cliente& Cliente::operator=(const Cliente& other) {
+    this->idCliente = other.getIdCliente();
+    this->nome = other.getNome();
+    this->UCs = other.getUCs();
+
+    return *this;
+}
