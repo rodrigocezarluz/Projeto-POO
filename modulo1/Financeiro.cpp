@@ -42,16 +42,25 @@ void Financeiro::cadastrarUC(const int &clienteToInsert, UC &uc) {
 }
 
 
-void Financeiro::cadastrarFaturas(int idCliente, int idUC, Fatura& fatura) {
+void Financeiro::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) {
 
     for (Cliente cliente : this->clientes) {
         if (cliente.getIdCliente() != idCliente) {
             continue;
         }
         cliente.addFatura(idUC, fatura);
+        return;
 
     }
     throw std::invalid_argument( "O cliente da UC nao existe." );
+}
+
+double Financeiro::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento) {
+    for (Cliente cliente : this->clientes) {
+        if (cliente.getIdCliente() == idCliente) {
+            return cliente.pagar(idFaturaAPagar, dtPagamento);
+        }
+    }
 }
 
 void Financeiro::verificarInadimplentes(const time_t &now) {

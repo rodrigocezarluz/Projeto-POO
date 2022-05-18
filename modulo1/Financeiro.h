@@ -29,7 +29,9 @@ public:
 
     void cadastrarUC(const int &clienteToInsert, UC &uc);
 
-    void cadastrarFaturas(int idCliente, int idUC, Fatura &fatura);
+    void cadastrarFaturas(const int &idCliente, int idUC, Fatura &fatura);
+
+    double receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento);
 
     void verificarInadimplentes(const time_t &now);
 };

@@ -1,26 +1,55 @@
 #include <iostream>
+#include <vector>
+
+
 #include "Financeiro.h"
 #include "Cliente.h"
+#include "PessoaFisica.h"
+#include "PessoaJuridica.h"
 #include "UC.h"
+#include "UCComercial.h"
+#include "UCResidencial.h"
+#include "UCIluminacaoPublica.h"
+#include "UCIndustrial.h"
 #include "Fatura.h"
 #include "utils.h"
 
 int main() {
+    UCComercial u1;
+    UCResidencial u2;
+    UCIluminacaoPublica u3;
+    UCIndustrial u4;
+
+    PessoaFisica cl1;
+    PessoaJuridica cl2;
+    PessoaJuridica cl3;
+
+    Fatura fat1(100, 0, getTime(30, 5, 2022, 0, 0, 0), getTime(15, 5, 2022, 0, 0, 0), getTime(10, 5, 2022, 0, 0, 0));
+    Fatura fat2(100, 0, getTime(30, 5, 2022, 0, 0, 0), 0, getTime(10, 5, 2022, 0, 0, 0));
+    Fatura fat3(100, 0, getTime(14, 5, 2022, 0, 0, 0), 0, getTime(25, 4, 2022, 0, 0, 0));
+    Fatura fat4(100, 0, getTime(14, 5, 2022, 0, 0, 0), 0, getTime(25, 4, 2022, 0, 0, 0));
+
     Financeiro fin;
 
-    Cliente cl1;
-    Cliente cl2;
-    Cliente cl3;
+    fin.cadastrarCliente(cl1);
+    fin.cadastrarCliente(cl2);
+    fin.cadastrarCliente(cl3);
 
-    UC u1;
-    UC u2;
-    UC u3;
-    UC u4;
+    fin.cadastrarUC(0, u1);
+    fin.cadastrarUC(0, u2);
+    fin.cadastrarUC(1, u3);
+    fin.cadastrarUC(2, u4);
 
-    Fatura fat1;
-    Fatura fat2;
-    Fatura fat3;
-    Fatura fat4;
+    fin.cadastrarFaturas(0, 0, fat1);
+    fin.cadastrarFaturas(0, 1, fat2);
+    fin.cadastrarFaturas(1, 2, fat3);
+    fin.cadastrarFaturas(2, 3, fat4);
+
+    time_t today = getTime(18, 5, 2022, 0, 0, 0);
+
+    // double valor = fin.receberPagamento(1, 2, today);
+
+    fin.verificarInadimplentes(today);
 
     std::cout << "Cliente1 ID: " << cl1.getIdCliente() << std::endl;
     std::cout << "Cliente2 ID: " << cl2.getIdCliente() << std::endl;
@@ -42,11 +71,13 @@ int main() {
 
     std::cout << " " << std::endl;
 
-    time_t day1 = getTime(18, 5, 2022, 0, 0, 0);
-    time_t day2 = getTime(25, 5, 2022, 0, 0, 0);
+    // std::cout << "Valor pagamento: " << valor << std::endl;
 
-    int diff = diffDays(day2, day1);
-    std::cout << "Diff days: " << diff << std::endl;
+    std::cout << " " << std::endl;
 
+    // std::cout << "ID inadimplentes (Cliente - Fatura)" << std::endl;
+    // for(const auto& inad : fin.getRelatorioInandimplentes()) {
+    //     std::cout << "    " << inad.first << " - " << inad.second << std::endl;
+    // }
     return 0;
 }

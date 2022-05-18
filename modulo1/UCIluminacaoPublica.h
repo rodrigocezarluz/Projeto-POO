@@ -9,8 +9,7 @@
 #include "UC.h"
 
 class UCIluminacaoPublica: public UC {
-
+    using UC::UC;
 };
-
 
 #endif //MODULO1_UCILUMINACAOPUBLICA_H

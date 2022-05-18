@@ -9,8 +9,7 @@
 #include "UC.h"
 
 class UCIndustrial: public UC {
-
+    using UC::UC;
 };
-
 
 #endif //MODULO1_UCINDUSTRIAL_H

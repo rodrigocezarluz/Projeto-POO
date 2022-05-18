@@ -32,7 +32,7 @@ public:
 
     void setNome(const std::string &nome);
 
-    void pagar(Fatura &fatura, const time_t &dtPagamento);
+    double pagar(const int &idFaturaAPagar, const time_t &dtPagamento);
 
     std::vector<Fatura> verificarPagamento();
 

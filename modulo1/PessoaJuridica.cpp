@@ -6,16 +6,16 @@
 #include <string>
 #include <vector>
 
-PessoaJuridica::PessoaJuridica() = default;
-
-PessoaJuridica::PessoaJuridica(std::string &cnpj) : CNPJ(cnpj) {}
-
 const std::string &PessoaJuridica::getCnpj() const {
     return CNPJ;
 }
 
 void PessoaJuridica::setCnpj(const std::string &cnpj) {
-    CNPJ = cnpj;
+    if (this->validarCNPJ(cnpj)) {
+        CNPJ = cnpj;
+    } else {
+        throw std::invalid_argument( "CNPJ invalido." );
+    }
 }
 
 bool PessoaJuridica::validarCNPJ(std::string cnpj_) {

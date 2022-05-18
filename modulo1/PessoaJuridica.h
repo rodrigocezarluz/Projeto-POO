@@ -12,9 +12,7 @@ class PessoaJuridica : public Cliente {
     std::string CNPJ;
 
 public:
-    PessoaJuridica(std::string &cnpj);
-
-    PessoaJuridica();
+    using Cliente::Cliente;
 
     bool validarCNPJ(std::string cnpj_);
 

@@ -6,16 +6,12 @@
 #include <string>
 #include <vector>
 
-PessoaFisica::PessoaFisica() = default;
-
-PessoaFisica::PessoaFisica(std::string &cpf) : CPF(cpf) {}
-
-const std::string &PessoaFisica::getCpf() const {
-    return CPF;
-}
-
 void PessoaFisica::setCpf(const std::string &cpf) {
-    CPF = cpf;
+    if (this->validarCPF(cpf)) {
+        CPF = cpf;
+    } else {
+        throw std::invalid_argument( "CPF invalido." );
+    }
 }
 
 bool PessoaFisica::validarCPF(std::string cpf_) {

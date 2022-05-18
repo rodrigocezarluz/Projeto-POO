@@ -9,8 +9,7 @@
 #include "UC.h"
 
 class UCResidencial : public UC {
-
+    using UC::UC;
 };
-
 
 #endif //MODULO1_UCRESIDENCIAL_H

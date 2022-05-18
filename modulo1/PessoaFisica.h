@@ -12,9 +12,7 @@ class PessoaFisica : public Cliente {
     std::string CPF;
 
 public:
-    PessoaFisica(std::string &cpf);
-
-    PessoaFisica();
+    using Cliente::Cliente;
 
     bool validarCPF(std::string cpf_);
 

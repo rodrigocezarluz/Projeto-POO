@@ -1,5 +1,5 @@
 #include "Cliente.h"
-
+#include <iostream>
 //
 // Created by Thales Nunes on 5/11/22.
 //
@@ -56,12 +56,15 @@ void Cliente::removeUC(UC &remove_uc) {
     }
 }
 
-void Cliente::pagar(Fatura& faturaAPagar, const time_t &dtPagamento) {
+double Cliente::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
+    std::cout << "cl: " << idCliente << std::endl;
     for (UC uc : this->UCs) {
+        std::cout << "uc: " << uc.getIdUc() << std::endl;
         for (Fatura fatura: uc.getFaturas()) {
-            if(fatura == faturaAPagar) {
+            std::cout << "fat: " << fatura.getIdFatura() << std::endl;
+            if(fatura.getIdFatura() == idFaturaAPagar) {
                 fatura.setDtPagamento(dtPagamento);
-                return;
+                return fatura.calcularValor(dtPagamento);
             }
         }
     }
