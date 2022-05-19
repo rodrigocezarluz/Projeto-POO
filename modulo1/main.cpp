@@ -47,7 +47,9 @@ int main() {
 
     time_t today = getTime(18, 5, 2022, 0, 0, 0);
 
-    // double valor = fin.receberPagamento(1, 2, today);
+    double paidValue = fin.receberPagamento(1, fat3.getIdFatura(), today);
+    std::cout << "Valor pagamento: R$" << paidValue << std::endl;
+
 
     fin.verificarInadimplentes(today);
 
@@ -69,15 +71,30 @@ int main() {
     std::cout << "Fatura3 ID: " << fat3.getIdFatura() << std::endl;
     std::cout << "Fatura4 ID: " << fat4.getIdFatura() << std::endl;
 
-    std::cout << " " << std::endl;
+    std::cout << std::endl << std::endl;
 
-    // std::cout << "Valor pagamento: " << valor << std::endl;
+     std::cout << "ID inadimplentes (Cliente - Fatura)" << std::endl;
+     for(const auto& inadimplentes : fin.getRelatorioInandimplentes()) {
+         std::cout << "    " << inadimplentes.first << " - ";
+          for (const auto & count : inadimplentes.second) {
+              std::cout << count.getIdFatura() << " ";
+          }
+         std::cout << std::endl;
+     }
 
-    std::cout << " " << std::endl;
+     cl1.setCpf("02062008627");
+     cl2.setCnpj("46260781000154");
 
-    // std::cout << "ID inadimplentes (Cliente - Fatura)" << std::endl;
-    // for(const auto& inad : fin.getRelatorioInandimplentes()) {
-    //     std::cout << "    " << inad.first << " - " << inad.second << std::endl;
-    // }
+    try {
+        cl1.setCpf("02062008629");
+    } catch (std::invalid_argument &e) {
+        std::cout << "Erro: " << e.what() << std::endl;
+    }
+
+    try {
+        cl2.setCnpj("46260781000153");
+    } catch (std::invalid_argument &e) {
+        std::cout << "Erro: " << e.what() << std::endl;
+    }
     return 0;
 }

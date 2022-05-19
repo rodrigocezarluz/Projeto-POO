@@ -32,31 +32,31 @@ void Financeiro::cadastrarCliente(Cliente &cliente) {
 }
 
 void Financeiro::cadastrarUC(const int &clienteToInsert, UC &uc) {
-    for (Cliente cliente : this->clientes) {
-        if (cliente.getIdCliente() == clienteToInsert) {
+    for (auto &cliente : this->clientes) {
+        if (cliente.getIdCliente() == clienteToInsert){
             cliente.addUC(uc);
             return;
         }
     }
+
     throw std::invalid_argument("O cliente da UC nao existe.");
 }
 
 
 void Financeiro::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) {
 
-    for (Cliente cliente : this->clientes) {
+    for (auto &cliente : this->clientes) {
         if (cliente.getIdCliente() != idCliente) {
             continue;
         }
         cliente.addFatura(idUC, fatura);
         return;
-
     }
     throw std::invalid_argument( "O cliente da UC nao existe." );
 }
 
 double Financeiro::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento) {
-    for (Cliente cliente : this->clientes) {
+    for (auto &cliente : this->clientes) {
         if (cliente.getIdCliente() == idCliente) {
             return cliente.pagar(idFaturaAPagar, dtPagamento);
         }
@@ -65,7 +65,7 @@ double Financeiro::receberPagamento(const int &idCliente, const int &idFaturaAPa
 
 void Financeiro::verificarInadimplentes(const time_t &now) {
     relatorioInandimplentes.clear();
-    for (Cliente cliente : this->clientes) {
+    for (auto &cliente : this->clientes) {
         std::vector<Fatura> faturasVencidas = cliente.verificarVencimento(now);
         if (faturasVencidas.size() > 0) {
                 relatorioInandimplentes[cliente.getIdCliente()] = faturasVencidas;

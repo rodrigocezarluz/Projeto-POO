@@ -42,16 +42,16 @@ void Cliente::addUC(UC &new_uc) {
             throw std::runtime_error("Repeated UC id");
         }
     }
-    UCs.push_back(new_uc);
+    this->UCs.push_back(new_uc);
 }
 
 void Cliente::removeUC(UC &remove_uc) {
 
-    const auto orig_size = UCs.size();
+    const auto orig_size = this->UCs.size();
 
-    UCs.erase(std::remove(UCs.begin(), UCs.end(), remove_uc), UCs.end());
+    this->UCs.erase(std::remove(UCs.begin(), UCs.end(), remove_uc), UCs.end());
 
-    if (UCs.size() == orig_size) {
+    if (this->UCs.size() == orig_size) {
         throw std::runtime_error( "UC not found." );
     }
 }
@@ -95,7 +95,7 @@ std::vector<Fatura> Cliente::verificarVencimento(const time_t &now) {
 
 
 void Cliente::addFatura(int idUC, Fatura &fatura) {
-    for (UC uc : this->UCs) {
+    for (auto &uc : this->UCs) {
         if (uc.getIdUc() != idUC) {
             continue;
         }
