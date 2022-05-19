@@ -30,6 +30,8 @@ public:
 
     void setFaturas(std::vector<Fatura> &faturas);
 
+    double pagar(const int &idFaturaAPagar, const time_t &dtPagamento);
+
     std::vector<Fatura> verificarPagamento();
 
     std::vector<Fatura> verificarVencimento(const time_t &now);

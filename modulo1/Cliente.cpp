@@ -37,7 +37,7 @@ void Cliente::setUCs(std::vector<UC> &uCs) {
 }
 
 void Cliente::addUC(UC &new_uc) {
-    for (UC uc : this->UCs) {
+    for (auto &uc : this->UCs) {
         if (uc == new_uc) {
             throw std::runtime_error("Repeated UC id");
         }
@@ -57,14 +57,10 @@ void Cliente::removeUC(UC &remove_uc) {
 }
 
 double Cliente::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
-    std::cout << "cl: " << idCliente << std::endl;
-    for (UC uc : this->UCs) {
-        std::cout << "uc: " << uc.getIdUc() << std::endl;
-        for (Fatura fatura: uc.getFaturas()) {
-            std::cout << "fat: " << fatura.getIdFatura() << std::endl;
+    for (auto &uc : this->UCs) {
+        for (auto &fatura: uc.getFaturas()) {
             if(fatura.getIdFatura() == idFaturaAPagar) {
-                fatura.setDtPagamento(dtPagamento);
-                return fatura.calcularValor(dtPagamento);
+                return uc.pagar(idFaturaAPagar, dtPagamento);
             }
         }
     }
@@ -74,7 +70,7 @@ double Cliente::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
 std::vector<Fatura> Cliente::verificarPagamento() {
     std::vector<Fatura> faturas;
 
-    for (UC uc : this->UCs) {
+    for (auto &uc : this->UCs) {
         std::vector<Fatura> faturasApagar = uc.verificarPagamento();
         faturas.insert(faturas.end(), faturasApagar.begin(), faturasApagar.end());
     }
@@ -85,7 +81,7 @@ std::vector<Fatura> Cliente::verificarPagamento() {
 std::vector<Fatura> Cliente::verificarVencimento(const time_t &now) {
     std::vector<Fatura> faturas;
 
-    for (UC uc : this->UCs) {
+    for (auto &uc : this->UCs) {
         std::vector<Fatura> faturasVencidas = uc.verificarVencimento(now);
         faturas.insert(faturas.end(), faturasVencidas.begin(), faturasVencidas.end());
     }

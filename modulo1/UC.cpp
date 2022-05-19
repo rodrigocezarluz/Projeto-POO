@@ -29,10 +29,20 @@ void UC::setFaturas(std::vector<Fatura> &faturas) {
     this->faturas = std::move(faturas);
 }
 
+double UC::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
+    for (auto &fatura: this->faturas) {
+        if(fatura.getIdFatura() == idFaturaAPagar) {
+            fatura.setDtPagamento(dtPagamento);
+            return fatura.calcularValor(dtPagamento);
+        }
+    }
+    throw std::invalid_argument( "Fatura a Pagar nao existe." );
+}
+
 std::vector<Fatura> UC::verificarPagamento() {
     std::vector<Fatura> faturasApagar;
 
-    for (Fatura fat : this->faturas) {
+    for (auto &fat : this->faturas) {
         if (!fat.verificarPagamento()) {
             faturasApagar.push_back(fat);
         }
@@ -43,7 +53,7 @@ std::vector<Fatura> UC::verificarPagamento() {
 std::vector<Fatura> UC::verificarVencimento(const time_t &now) {
     std::vector<Fatura> faturasVencidas;
 
-    for (Fatura fat : this->faturas) {
+    for (auto &fat : this->faturas) {
         if (!fat.verificarPagamento() && now > fat.getDtVencimento()) {
             faturasVencidas.push_back(fat);
         }
@@ -52,7 +62,7 @@ std::vector<Fatura> UC::verificarVencimento(const time_t &now) {
 }
 
 void UC::addFatura(Fatura &new_fatura) {
-    for (Fatura fat : this->faturas) {
+    for (auto &fat : this->faturas) {
         if (fat == new_fatura) {
             throw std::runtime_error("Repeated Fatura id");
         }
