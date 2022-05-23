@@ -1,12 +1,30 @@
 #ifndef SERVICO_H
 #define SERVICO_H
 
-class Servico {
-private:
+#include <ctime>
+#include "UC.h"
 
+class Servico {
+    std::time_t inicio;
+    std::time_t fim;
+    UC uc;
 public:
     Servico();
 
+    Servico(time_t inicio, const UC &uc);
+
+    Servico(time_t inicio, time_t fim, const UC &uc);
+
+
+    time_t getInicio() const;
+
+    void setInicio(time_t inicio);
+
+    time_t getFim() const;
+
+    void setFim(time_t fim);
+
+    void executar();
 };
 
 #endif
