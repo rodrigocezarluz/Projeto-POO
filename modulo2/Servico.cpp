@@ -1,14 +1,16 @@
 #include "Servico.h"
 
-Servico::Servico() {
+int Servico::next_id_servico = 0;
+
+Servico::Servico() : id_servico(next_id_servico++), inicio((time_t)(0)), fim((time_t)(0)){
 
 }
 
-Servico::Servico(time_t inicio, const UC &uc) : inicio(inicio), uc(uc) {
+Servico::Servico(time_t inicio, const UC &uc) : inicio(inicio), uc(uc), id_servico(next_id_servico++) , fim((time_t)(0)){
 
 }
 
-Servico::Servico(time_t inicio, time_t fim, const UC &uc) : inicio(inicio), fim(fim), uc(uc) {
+Servico::Servico(time_t inicio, time_t fim, const UC &uc) : inicio(inicio), fim(fim), uc(uc), id_servico(next_id_servico++) {
 
 }
 
@@ -31,4 +33,8 @@ void Servico::setFim(time_t fim) {
 
 void Servico::executar() {
     Servico::setFim(time(0));
+}
+
+int Servico::getIDServico(){
+    return this->id_servico;
 }

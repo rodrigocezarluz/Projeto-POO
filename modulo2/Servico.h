@@ -5,6 +5,8 @@
 #include "UC.h"
 
 class Servico {
+    static int next_id_servico;
+    int id_servico; 
     std::time_t inicio;
     std::time_t fim;
     UC uc;
@@ -25,6 +27,8 @@ public:
     void setFim(time_t fim);
 
     void executar();
+
+    int getIDServico();
 };
 
 #endif
