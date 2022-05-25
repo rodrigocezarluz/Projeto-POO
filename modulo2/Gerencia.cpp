@@ -16,7 +16,7 @@ const std::map<int, std::vector<Fatura>> &Gerencia::getRelatorioInandimplentes()
 }
 
 void Gerencia::setRelatorioInandimplentes(const std::map<int, std::vector<Fatura>> &relatorioInandimplentes) {
-    Gerencia::relatorioInandimplentes = relatorioInandimplentes;
+    this->relatorioInandimplentes = relatorioInandimplentes;
 }
 
 const std::vector<Cliente> &Gerencia::getClientes() const {
@@ -24,11 +24,23 @@ const std::vector<Cliente> &Gerencia::getClientes() const {
 }
 
 void Gerencia::setClientes(const std::vector<Cliente> &clientes) {
-    Gerencia::clientes = clientes;
+    this->clientes = clientes;
+}
+
+const std::vector<Funcionario> &Gerencia::getFuncionarios() const {
+    return funcionarios;
+}
+
+void Gerencia::setFuncionarios(const std::vector<Funcionario> &funcionario) {
+    this->funcionarios = funcionarios;
 }
 
 void Gerencia::cadastrarCliente(Cliente &cliente) {
     this->clientes.push_back(cliente);
+}
+
+void Gerencia::cadastrarFuncionario(Funcionario &funcionario) {
+    this->funcionarios.push_back(funcionario);
 }
 
 void Gerencia::cadastrarUC(const int &clienteToInsert, UC &uc) {
@@ -53,6 +65,26 @@ void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) 
         return;
     }
     throw std::invalid_argument( "O cliente da UC nao existe." );
+}
+
+void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const std::string &data, int prioridade_servico) {
+    for (auto &funcionario : this->funcionarios) {
+        if (funcionario.getIDFuncionario() == idFuncionario){
+            funcionario.adicionarServico(servico, data, prioridade_servico);
+            return;
+        }
+    }
+
+    throw std::invalid_argument("O funcionario nao existe.");
+}
+
+void Gerencia::executarServicos(const int &idFuncionario, const std::string &data) {
+    for (auto &funcionario : this->funcionarios) {
+        if (funcionario.getIDFuncionario() == idFuncionario) {
+            funcionario.executarServicos(data);
+            return;
+        }
+    }
 }
 
 double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento) {

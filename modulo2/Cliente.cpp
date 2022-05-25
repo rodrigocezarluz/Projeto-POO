@@ -39,7 +39,7 @@ void Cliente::setUCs(std::vector<UC> &uCs) {
 void Cliente::addUC(UC &new_uc) {
     for (auto &uc : this->UCs) {
         if (uc == new_uc) {
-            throw std::runtime_error("Repeated UC id");
+            throw std::invalid_argument("Repeated UC id");
         }
     }
     this->UCs.push_back(new_uc);
@@ -52,7 +52,7 @@ void Cliente::removeUC(UC &remove_uc) {
     this->UCs.erase(std::remove(UCs.begin(), UCs.end(), remove_uc), UCs.end());
 
     if (this->UCs.size() == orig_size) {
-        throw std::runtime_error( "UC not found." );
+        throw std::invalid_argument( "UC not found." );
     }
 }
 

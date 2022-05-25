@@ -27,13 +27,6 @@ class Funcionario {
          */
         Funcionario(const std::string &nome);
 
-        /**
-         * @brief Construtor padrao que inicializa as variáveis nome e maxServicos.
-         *
-         * @param nome Nome do funcionário
-         * @param maxServicos Quantidade máxima de serviços que o funcionário pode executar por dia
-         */
-        Funcionario(const std::string &nome, int maxServicos);
 
          /**
          * @brief Construtor padrao que inicializa o objeto a partir de outro objeto da mesma classe já existente.
@@ -49,20 +42,20 @@ class Funcionario {
          * @param data Data na qual o serviço será executado, formato yyyy-mm-dd
          * @param prioridade_servico Prioridade de execução do serviço. Prioridade máxima para 0.
          */
-        void adicionarServico(Servico &servico, std::string data, int prioridade_servico);        
+        void adicionarServico(Servico &servico, const std::string &data, int prioridade_servico);        
         
         /**
          * @brief Extrai a lista de serviços que o funcionário deve executar na data atual. 
          * Formato padrão da data: yyyy-mm-dd
          */
-        std::vector<Servico> &extrairServicos();
+        std::vector<Servico> extrairServicos(const std::string &data);
         
 
         /**
          * @brief Seta um nome para o funcionario
          * @param nome Nome do funcionário
          */
-        void setNome(std::string nome);
+        void setNome(const std::string &nome);
 
         /**
          * @brief Retorna o nome do funcionário
@@ -73,12 +66,12 @@ class Funcionario {
          * @brief Define a quantidade máxima de serviços que um funcionário pode executar em um dia
          * @param max_servicos Quantidade máxima de serviços permitida
          */
-        void setMaxServicos(int max_servicos);
+        static void setMaxServicos(const int &ms);
 
         /**
          * @brief Retorna a quantidade máxima de serviços que um funcionário pode executar
          */
-        int getMaxServicos() const;
+        static int getMaxServicos();
 
         /**
          * @brief Retorna o ID do Funcionário
@@ -102,7 +95,9 @@ class Funcionario {
          * @brief Retorna a quantidade de serviços que estão na fila do funcionário em uma dada data
          * @param data Data na qual se quer avaliar a quantidade de serviços na fila
          */
-        int getQtdServicos(const std::string data_agenda) const;        
+        int getQtdServicos(const std::string data_agenda) const;
+
+        void executarServicos(const std::string &data);
 
 
         /**
@@ -115,7 +110,11 @@ class Funcionario {
         /**
          * @brief Imprime toda a agenda de serviços do funcionário          
          */
-        void printAgendaServicos();     
+        void printAgendaServicos();
+        
+        bool operator==(const Funcionario& other);
+
+        Funcionario& operator=(const Funcionario& other);
         
 
         /**

@@ -10,12 +10,11 @@ Funcionario::Funcionario() : idFuncionario(nextIdFuncionario++) {}
 
 Funcionario::Funcionario(const std::string &nome) : idFuncionario(nextIdFuncionario++), nome(nome) {}
 
-Funcionario::Funcionario(const std::string &nome, int maxServicos) : idFuncionario(nextIdFuncionario++), nome(nome) {}
-
 Funcionario::Funcionario(const Funcionario& funcionario) : idFuncionario(funcionario.idFuncionario), 
-                                                           nome(funcionario.nome) {}
+                                                           nome(funcionario.nome),
+                                                           servicos(funcionario.servicos) {}
 
-void Funcionario::setNome(std::string nome){
+void Funcionario::setNome(const std::string &nome){
     this->nome = nome;
 }
 
@@ -23,11 +22,11 @@ std::string Funcionario::getNome() const{
     return this->nome;
 }
 
-void Funcionario::setMaxServicos(int max_servicos){
-    this->maxServicos = max_servicos;
+void Funcionario::setMaxServicos(const int &ms){
+    Funcionario::maxServicos = ms;
 }
 
-int Funcionario::getMaxServicos() const{
+int Funcionario::getMaxServicos(){
     return Funcionario::maxServicos;
 }
 
@@ -43,16 +42,14 @@ void Funcionario::setServicos(std::map<std::string, std::vector<Servico>> &servi
     this->servicos = servicos;
 }
 
-void Funcionario::adicionarServico(Servico &servico, std::string data, int prioridade_servico) {    
+void Funcionario::adicionarServico(Servico &servico, const std::string &data, int prioridade_servico) {    
     
     if (!(this->servicos.count(data))){  
             std::vector<Servico> _servicos;            
             this->servicos.insert({data, _servicos});
-            //std::cout << "Vetor de servicos criado para a data: " << data << "\n";
         }
     
-    //std::cout << "Qtd de servicos ja alocados: " << this->servicos.at(data).size() << "\n";
-    if (this->servicos.at(data).size() >= this->getMaxServicos()){
+    if (this->servicos.at(data).size() >= Funcionario::maxServicos){
         std::cout << "Operacao nao realizada. Quantidade maxima de servicos ja cadastrada para a data: " + data + ".\n";
         return;
     }
@@ -66,40 +63,37 @@ void Funcionario::adicionarServico(Servico &servico, std::string data, int prior
     }
 
 
-    else if(prioridade_servico > this->getMaxServicos()){
-        prioridade_servico = this->getMaxServicos();
+    else if(prioridade_servico > Funcionario::maxServicos){
+        prioridade_servico = Funcionario::maxServicos;
     }
 
-    //std::cout << "Servico cadastrado com prioridade: " << prioridade_servico << "\n";
     this->servicos.at(data).insert(this->servicos.at(data).begin() + prioridade_servico, servico);
-    //std::cout << "Cadastro de servico finalizado" << "\n";
-    return;
 }
 
 
-std::vector<Servico> &Funcionario::extrairServicos(){
-    // obtendo a data atual
-    std::time_t t = std::time(0);   
-    std::tm* now = std::localtime(&t);
-    std::string today_date = std::to_string(now->tm_year + 1900) + "-" + 
-                            std::string(2 - std::to_string(now->tm_mon + 1).length(), '0').append(std::to_string(now->tm_mon + 1))  + "-" + 
-                            std::to_string(now->tm_mday);
-
-    
-    if (!(this->servicos.count(today_date))){  
-        //std::cout << "Nao ha servicos cadastrados para a data atual: " + today_date + ".\n";
-        std::vector<Servico>* demanda_diaria = new std::vector<Servico>;
-        return *demanda_diaria;        
-        }    
+std::vector<Servico> Funcionario::extrairServicos(const std::string &data){
+    if (!(this->servicos.count(data))){  
+        return std::vector<Servico> ();
+    }    
         
-    return this->servicos.at(today_date);    
+    return this->servicos.at(data);
+}
+
+void Funcionario::executarServicos(const std::string &data) {
+    if (!(this->servicos.count(data))){
+        return;
+    }
+    for (auto& ser: this->servicos.at(data)){
+        ser.setInicio(time(0));
+        ser.executar();
+    }
 }
 
 int Funcionario::getQtdServicos(const std::string data_agenda) const{
     if ((this->servicos.count(data_agenda))){
         return this->servicos.at(data_agenda).size();
     }
-    else{
+    else {
         std::cout << "Nao ha servicos cadastrados para a data informada: " + data_agenda + ".\n";        
         return 0;
     }
@@ -123,12 +117,22 @@ void Funcionario::printAgendaServicos(){
     std::cout << "\n";
 }
 
+bool Funcionario::operator==(const Funcionario& other) {
+  return this->idFuncionario == other.getIDFuncionario();
+}
 
+Funcionario& Funcionario::operator=(const Funcionario& other) {
+    this->idFuncionario = other.getIDFuncionario();
+    this->nome = other.getNome();
+    this->servicos = other.getServicos();
+
+    return *this;
+}
 
 std::ostream& operator << (std::ostream &out, const Funcionario &funcionario){
   out << "Nome do Funcionario: " << funcionario.nome << ".\n" 
         << "ID do funcionario: " << funcionario.idFuncionario << ".\n"
-        << "Quantidade maxima de servicos diarios: " << funcionario.maxServicos << ".\n";  
+        << "Quantidade maxima de servicos diarios: " << Funcionario::maxServicos << ".\n";  
   return out;
 
 }

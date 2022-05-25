@@ -15,6 +15,12 @@
 #include "utils.h"
 #include "Funcionario.h"
 #include "Servico.h"
+#include "DesligEncerramento.h"
+#include "DesligInadimplencia.h"
+#include "LigacaoNova.h"
+#include "Medicao.h"
+#include "ReligacaoPagamento.h"
+#include "TrocaMedidor.h"
 
 
 int main() {
@@ -104,7 +110,8 @@ int main() {
     }
     //-------------------------------------------------------------------------------------------------------------------------
 
-
+    std::cout << " " << std::endl;
+    std::cout << " " << std::endl;
 
     // INICIANDO TESTES DO MÓDULO 2
     //-------------------------------------------------------------------------------------------------------------------------
@@ -120,62 +127,70 @@ int main() {
 
 
     // instanciando Funcionarios
-    Funcionario funcionario1("Jose Silva", 8);
-    Funcionario funcionario2("Luiza Maria", 8);
-    std::cout << "Funcionario criado: " << "\n" << funcionario1 << "\n";
-    std::cout << "Funcionario criado: " << "\n" << funcionario2 << "\n";
+    Funcionario::setMaxServicos(8);
+    Funcionario funcionario1("Jose Silva");
+    Funcionario funcionario2("Luiza Maria");
+    std::cout << "Funcionario criado: " << "\n" << funcionario1 << std::endl;
+    std::cout << "Funcionario criado: " << "\n" << funcionario2 << std::endl;
 
-    Servico servico1, servico2, servico3, servico4, servico5, servico6, servico7, servico8, servico9;
-    Servico servico10, servico11, servico12, servico13, servico14, servico15, servico16;
+    fin.cadastrarFuncionario(funcionario1);
+    fin.cadastrarFuncionario(funcionario2);
 
-    
-    std::cout << "Adicionando servicos na fila do Funcionario: " << funcionario1.getNome() << "\n";
-    funcionario1.adicionarServico(servico1, data_hoje, 1);
-    funcionario1.adicionarServico(servico2, data_hoje, 2);
-    funcionario1.adicionarServico(servico3, data_hoje, 3);
-    funcionario1.adicionarServico(servico6, data_hoje, 6);
-    funcionario1.adicionarServico(servico4, data_hoje, 4);
-    funcionario1.adicionarServico(servico5, data_hoje, 5);
-    funcionario1.adicionarServico(servico7, data_hoje, 7);
-    funcionario1.adicionarServico(servico8, data_hoje, 8);
-    std::cout << "\nQuantidade de servicos na agenda do funcionario "<<  funcionario1.getNome() << " : " << funcionario1.getQtdServicos(data_hoje);
-
-    // servico acima da quantidade maxima
-    if (funcionario1.getQtdServicos(data_hoje) == funcionario1.getMaxServicos()){
-        funcionario2.adicionarServico(servico9, data_hoje, 1);
-    }
+    DesligEncerramento servico1, servico2, servico3;
+    DesligInadimplencia servico4, servico5, servico6;
+    LigacaoNova servico7, servico8, servico9;
+    Medicao servico10, servico11, servico12;
+    ReligacaoPagamento servico13, servico14;
+    TrocaMedidor servico15, servico16;
 
     
-    funcionario1.printAgendaServicos();
+    std::cout << "Adicionando servicos na fila dos funcionarios..." << std::endl;
+
+    fin.cadastrarServico(0, servico1, data_hoje, 1);
+    fin.cadastrarServico(0, servico2, data_hoje, 2);
+    fin.cadastrarServico(0, servico3, data_hoje, 3);
+    fin.cadastrarServico(0, servico6, data_hoje, 6);
+    fin.cadastrarServico(0, servico4, data_hoje, 4);
+    fin.cadastrarServico(0, servico5, data_hoje, 5);
+    fin.cadastrarServico(0, servico7, data_hoje, 7);
+    fin.cadastrarServico(0, servico8, data_hoje, 8);
+
+    fin.cadastrarServico(1, servico9, data_hoje, 1);
+
+    // inserindo mais servicos na agenda do funcionario1
+    fin.cadastrarServico(0, servico10, data_amanha, 1);
+    fin.cadastrarServico(0, servico11, data_amanha, 2);
+    fin.cadastrarServico(0, servico12, data_amanha, 3);
+    fin.cadastrarServico(0, servico13, data_amanha, 4);
+    fin.cadastrarServico(0, servico14, data_amanha, 5);
+    fin.cadastrarServico(0, servico15, data_amanha, 6);
+    fin.cadastrarServico(0, servico16, data_amanha, 9);
 
 
-    std::cout << "\nExtraindo demanda diaria (" << data_hoje << ") da fila do funcionario: " << funcionario1.getNome() << "\n";
-    std::vector<Servico> &servicos_func1 = funcionario1.extrairServicos();    
-    std::cout << "Lista de servicos extraidos: \n";
+    std::vector<Funcionario> funcionarios(fin.getFuncionarios());
+    funcionarios[0].printAgendaServicos();
+    funcionarios[1].printAgendaServicos();
+
+
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje << ") da fila do funcionario: " << funcionarios[0].getNome() << std::endl;
+    std::vector<Servico> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);    
+    std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func1);
+
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje << ") da fila do funcionario: " << funcionarios[1].getNome() << std::endl;
+    std::vector<Servico> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);    
+    std::cout << "Lista de servicos extraidos:" << std::endl;
+    Funcionario::printServicos(servicos_func2);
 
 
     // executando os servicos
-    std::cout << "Executando servicos do funcionario: " << funcionario1.getNome() << "\n";
-    for (Servico& ser: servicos_func1){
-            ser.setInicio(time(0));
-            ser.executar();
-            std::cout << "ID do servico: " << ser.getIDServico() << "; Data de inicio: " << ser.getInicio() << "; Data de fim: " << ser.getFim() << ".\n";
-        }
+    std::cout << "Executando servicos do dia: " << data_hoje << std::endl;
+    fin.executarServicos(0, data_hoje);
+    fin.executarServicos(1, data_hoje);
 
-
-    // inserindo mais servicos na agenda do funcionario1
-    funcionario1.adicionarServico(servico10, data_amanha, 1);
-    funcionario1.adicionarServico(servico11, data_amanha, 2);
-    funcionario1.adicionarServico(servico12, data_amanha, 3);
-    funcionario1.adicionarServico(servico13, data_amanha, 4);
-    funcionario1.adicionarServico(servico14, data_amanha, 5);
-    funcionario1.adicionarServico(servico15, data_amanha, 6);
-    funcionario1.adicionarServico(servico16, data_amanha, 9);
-
-
-    funcionario1.printAgendaServicos();
-    funcionario2.printAgendaServicos();
+    std::vector<Funcionario> funcionarios2(fin.getFuncionarios());
+    funcionarios2[0].printAgendaServicos();
+    funcionarios2[1].printAgendaServicos();
 
 
     //-------------------------------------------------------------------------------------------------------------------------

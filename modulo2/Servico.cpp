@@ -32,7 +32,7 @@ void Servico::setFim(time_t fim) {
 }
 
 void Servico::executar() {
-    Servico::setFim(time(0));
+    this->setFim(time(0));
 }
 
 int Servico::getIDServico(){
