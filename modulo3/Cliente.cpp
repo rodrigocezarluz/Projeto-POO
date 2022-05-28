@@ -28,6 +28,14 @@ void Cliente::setNome(const std::string &nome) {
     this->nome = nome;
 }
 
+std::string Cliente::getTelefoneContato() const {
+    return telefoneContato;
+}
+
+void Cliente::setTelefoneContato(const std::string &telefoneContato) {
+    this->telefoneContato = telefoneContato;
+}
+
 std::vector<UC> const &Cliente::getUCs() const {
     return UCs;
 }
