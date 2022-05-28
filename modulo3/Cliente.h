@@ -14,7 +14,7 @@ class Cliente {
 private:
     static int nextIdCliente;
     int idCliente;
-    std::string nome;
+    std::string nome, telefoneContato;
     std::vector<UC> UCs;
 
 public:
@@ -31,6 +31,10 @@ public:
     std::string getNome() const;
 
     void setNome(const std::string &nome);
+
+    std::string getTelefoneContato() const;
+
+    void setTelefoneContato(const std::string &telefoneContato);
 
     double pagar(const int &idFaturaAPagar, const time_t &dtPagamento);
 
