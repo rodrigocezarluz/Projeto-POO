@@ -4,14 +4,16 @@
 
 #include "UC.h"
 #include "Fatura.h"
+#include <cstdlib>
+
 
 int UC::nextIdUC = 0;
 
-UC::UC() : idUC(nextIdUC++) {}
+UC::UC() : idUC(nextIdUC++), consumoEnergiaTotal(0), consumoEnergiaMedido(0) {}
 
-UC::UC(const std::vector<Fatura> &faturas) : idUC(nextIdUC++), faturas(faturas) {}
+UC::UC(const std::vector<Fatura> &faturas) : idUC(nextIdUC++), faturas(faturas), consumoEnergiaTotal(0), consumoEnergiaMedido(0) {}
 
-UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas) {}
+UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas), consumoEnergiaTotal(uc.consumoEnergiaTotal), consumoEnergiaMedido(uc.consumoEnergiaMedido) {}
 
 int UC::getIdUc() const {
     return idUC;
@@ -19,6 +21,24 @@ int UC::getIdUc() const {
 
 void UC::setIdUc(int idUc) {
     this->idUC = idUc;
+}
+
+double UC::getConsumoEnergiaTotal() const {
+    return this->consumoEnergiaTotal;
+}
+
+void UC::setConsumoEnergiaTotal(double consumoMedido) {
+    this->consumoEnergiaTotal += consumoMedido;
+    return;
+}
+
+double UC::getConsumoEnergiaMedido() const {
+    return this->consumoEnergiaMedido;
+}
+
+void UC::setConsumoEnergiaMedido(double consumoMedido) {
+    this->consumoEnergiaMedido = consumoMedido;
+    return;
 }
 
 std::vector<Fatura> const & UC::getFaturas() const{
@@ -37,6 +57,22 @@ double UC::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
         }
     }
     throw std::invalid_argument( "Fatura a Pagar nao existe." );
+}
+
+double UC::medirEnergia(){
+    
+    // obtendo um valor de consumo de energia aleatório
+    std::srand(time(0));  // Initialize random number generator.    
+    double valor_maximo = 10000;
+    double valor_minino = 0;
+    double valor_medido = static_cast <double> (std::rand()) / ( static_cast <double> (RAND_MAX/(valor_maximo-valor_minino)));
+        
+    // obtendo a quantidade de energia consumida desde a última medição.
+    this->setConsumoEnergiaMedido(valor_medido);
+
+    // incrementando o consumo de energia total da UC
+    this->setConsumoEnergiaTotal(this->getConsumoEnergiaMedido());
+    return this->getConsumoEnergiaTotal();
 }
 
 std::vector<Fatura> UC::verificarPagamento() {
@@ -77,6 +113,8 @@ bool UC::operator==(const UC& other) {
 UC& UC::operator=(const UC& other) {
     this->idUC = other.getIdUc();
     this->faturas = other.getFaturas();
+    this->consumoEnergiaMedido = other.getConsumoEnergiaMedido();
+    this->consumoEnergiaTotal = other.getConsumoEnergiaTotal();
 
     return *this;
 }
