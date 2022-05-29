@@ -31,7 +31,13 @@ void Servico::setFim(time_t fim) {
     Servico::fim = fim;
 }
 
+UC & Servico::getUC()  {
+    return this->uc;
+}
+
+
 void Servico::executar() {
+
     this->setFim(time(0));
 }
 

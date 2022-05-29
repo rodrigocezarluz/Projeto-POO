@@ -10,13 +10,13 @@ class Servico {
     std::time_t inicio;
     std::time_t fim;
     UC uc;
+
 public:
     Servico();
 
     Servico(time_t inicio, const UC &uc);
 
     Servico(time_t inicio, time_t fim, const UC &uc);
-
 
     time_t getInicio() const;
 
@@ -26,9 +26,12 @@ public:
 
     void setFim(time_t fim);
 
-    void executar();
+    virtual void executar();
 
     int getIDServico();
+
+    UC& getUC();
+
 };
 
 #endif
