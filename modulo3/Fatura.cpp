@@ -5,8 +5,9 @@
 #include "Fatura.h"
 
 const double TAXA_JUROS = 1.02;
-
+const double PRECO_ENERGIA = 0.96574002;  // preço da energia em R$/kW ; valor referencia CEMIG maio de 2022]
 int Fatura::nextIdFatura = 0;
+
 
 Fatura::Fatura() : idFatura(nextIdFatura++), dtPagamento(0) {}
 

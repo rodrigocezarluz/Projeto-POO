@@ -11,6 +11,7 @@
 #include "utils.h"
 
 class Fatura {
+
 private:
     static int nextIdFatura;
     int idFatura;
@@ -19,7 +20,12 @@ private:
     time_t dtVencimento;
     time_t dtPagamento;
     time_t dtEmissao;
+   
+
 public:
+    
+    static const double PRECO_ENERGIA;  // preço da energia em R$/kW ; valor referencia CEMIG maio de 2022
+
     Fatura();
 
     Fatura(const double valorInicial, const double consumoEnergia, const time_t dtVencimento, const time_t dtPagamento, const time_t dtEmissao);
@@ -57,6 +63,8 @@ public:
     bool operator==(const Fatura& other);
 
     Fatura& operator=(const Fatura& other);
+
+    
 
 };
 
