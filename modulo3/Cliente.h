@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include "UC.h"
+#include "Data.h"
 
 class Cliente {
 private:
@@ -36,11 +37,11 @@ public:
 
     void setTelefoneContato(const std::string &telefoneContato);
 
-    double pagar(const int &idFaturaAPagar, const time_t &dtPagamento);
+    double pagar(const int &idFaturaAPagar, const Data &dtPagamento);
 
     std::vector<Fatura> verificarPagamento();
 
-    std::vector<Fatura> verificarVencimento(const time_t &now);
+    std::vector<Fatura> verificarVencimento(Data &now);
 
     std::vector<UC> const &getUCs() const;
 

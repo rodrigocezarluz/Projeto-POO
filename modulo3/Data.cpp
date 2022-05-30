@@ -11,115 +11,79 @@ using namespace std;
 
 //Metodos Privados:
 
-void Data::ticksToDate()
-{
-    long aux;
-    int bissexto= 0;        //Variavel para identificar se o ano atualmente considerado eh bissexto, sendo 1 sim e 0 nao
-
-    aux= ticks;     //Copia o valor conhecido de ticks para uma variavel auxiliar
-    //Inicializa a data como o menor valor possivel para ser entao incrementado
-    ano= 1970;
-    mes= 1;
-    dia= 1;
-    hora= 0;
-    minuto= 0;
-    segundo= 0;
-    //Determina o numero de anos passados desde 1970:
-    while (aux>(60*60*24*365))      //Verifica se o valor restante de ticks supera os segundos de um ano normal
-    {
-        if ((ano%400==0)||((ano%4==0)&&(ano%100!=0)))       //Verifica se o ano atualmente considerado eh bissexto
-        {
-            bissexto= 1;
-            if (aux>(60*60*24*366))     //Verifica se o valor restante de ticks supera os segundos de um ano bissexto
-            {
-                ano++;
-                aux= aux-(60*60*24*366);
-            }
-            else
-                break;
-        }
-        else
-            bissexto= 0;
-    }
-    //Determina o numero de meses e dias passados no ano final:
-    while (aux>(60*60*24))
-    {
-        dia++;
-        aux= aux-(60*60*24);
-        if ((dia>31)&&((mes==1)||(mes==3)||(mes==5)||(mes==7)||(mes==8)||(mes==10)||(mes==12)))     //Verifica se o numero de dias supera 31 nos meses correspondentes
-        {
-            mes++;
-            dia= 1;
-        }
-        else if ((dia>30)&&((mes==4)||(mes==6)||(mes==9)||(mes==11)))        //Verifica se o numero de dias supera 30 nos meses correspondentes
-        {
-            mes++;
-            dia= 1;
-        }
-        else if (dia>(28+bissexto))     //Verifica se o numero de dias supera 28 ou 29 em fevereiro levando em conta se o ano eh bissexto
-        {
-            mes++;
-            dia= 1;
-        }
-    }
-    //Determina o numero de horas no dia final:
-    while (aux>(60*60))
-    {
-        hora++;
-        aux= aux-(60*60);
-    }
-    //Determina o numero de minutos na hora final:
-    while (aux>60)
-    {
-        minuto++;
-        aux= aux-60;
-    }
-    //Determina o numero de segundos no minuto final:
-    segundo= int(aux);
+int bissexto(int year){
+    return year % 4 == 0 && (year % 400 == 0 || year % 100 != 0) ? 1 : 0;
 }
 
-void Data::dateToTicks()
-{
-    long aux= 0;        //Foi #include "ExecaoCustomizada.h"utilizada uma variavel auxiliar para nao ser necessario inicializar ticks como 0 por default
-    int anosBissextos= 0;       //Variavel para armazenar o numero de anos bissextos passados desde 1970
-    int anosNormais= 0;     //Variavel para armazenar o numero de anos nao bissextos passados desde 1970
+int monthToDays(int month){
+    return month == 2 ? 28 :
+           month <= 7 ? 30 + (month % 2) :
+           month > 7 ? 31 - (month % 2) : 31;
+}
 
-    anosBissextos= ((ano-1973)/4)+1;        //1972 eh um ano bissexto, e somente a partir dele ciclos perfeitos de 4
-                                            //anos ocorreram desde 1970 para a contagem de anos bissextos passados
-    anosNormais= ano-1970-anosBissextos;
-    aux+= long(anosBissextos*(60*60*24*366));
-    aux+= long(anosNormais*(60*60*24*365));
-    if (mes>=2)
-        aux+= long((31*60*60*24));
-    if (mes>=3)
-    {
-        aux+= long((28*60*60*24));
-        if ((ano%400==0)||((ano%4==0)&&(ano%100!=0)))
-            aux+= long((60*60*24));
+void Data::ticksToDate() {
+    //Inicializa as datas
+    this->ano = 1970;
+    this->mes = 0;
+    this->dia = 1;
+    this->hora = 0;
+    this->minuto = 0;
+    this->segundo = 0;
+    long availableTicks = this->ticks;
+    bool stopYears = false;
+
+    while(availableTicks >= YEAR_TO_SECONDS && !stopYears){
+        availableTicks -= (YEAR_TO_SECONDS + (bissexto(this->ano) * DAY_TO_SECONDS));
+        this->ano++;
+        if(bissexto(this->ano) == 1){
+            if(availableTicks <  (YEAR_TO_SECONDS+DAY_TO_SECONDS)){
+                stopYears = true;
+            }
+        }
     }
-    if (mes>=4)
-        aux+= long((31*60*60*24));
-    if (mes>=5)
-        aux+= long((30*60*60*24));
-    if (mes>=6)
-        aux+= long((31*60*60*24));
-    if (mes>=7)
-        aux+= long((30*60*60*24));
-    if (mes>=8)
-        aux+= long((31*60*60*24));
-    if (mes>=9)
-        aux+= long((31*60*60*24));
-    if (mes>=10)
-        aux+= long((30*60*60*24));
-    if (mes>=11)
-        aux+= long((31*60*60*24));
-    if (mes==12)
-        aux+= long((30*60*60*24));
-    aux+= long(dia*(60*60*24));
-    aux+= long(hora*(60*60));
-    aux+= long(minuto*60);
-    aux+= long(segundo);
-    ticks= aux;
+  this->mes += 1;
+    while(availableTicks > 0) {
+        long duracaoMes = monthToDays(this->mes) * DAY_TO_SECONDS;
+        if (availableTicks >= duracaoMes){
+            availableTicks -= duracaoMes;
+            this->mes++;
+        }else if(availableTicks >= DAY_TO_SECONDS){
+            this->dia += (int) availableTicks/DAY_TO_SECONDS;
+            availableTicks-= (this->dia-1) * DAY_TO_SECONDS;
+        }else if(availableTicks >= HOURS_TO_SECONDS){
+            this->hora += (int) availableTicks/HOURS_TO_SECONDS;
+            availableTicks-= this->hora * HOURS_TO_SECONDS;
+        }else if(availableTicks >= MINUTE_TO_SECONDS){
+            this->minuto += (int) availableTicks/MINUTE_TO_SECONDS;
+            availableTicks-= this->minuto * MINUTE_TO_SECONDS;
+        }else{
+            this->segundo = availableTicks;
+          availableTicks = 0;
+        }
+    }
+
+
+
+}
+void Data::dateToTicks() {
+    this->ticks = 0;
+    for (int currentYear = 1970; currentYear < this->ano; currentYear++) {
+        this->ticks += YEAR_TO_SECONDS;
+        if(bissexto(currentYear) == 1){
+            this->ticks += DAY_TO_SECONDS;
+        }
+    }
+
+    for (int currentMonth = 0; currentMonth < (this->mes-1);currentMonth++){
+        this->ticks += (monthToDays(currentMonth) * DAY_TO_SECONDS);
+        if(currentMonth == 2 && bissexto(this->ano) == 1 && this->mes > 2){
+            this->ticks += DAY_TO_SECONDS;
+        }
+    }
+    this->ticks += (this->dia-1) * DAY_TO_SECONDS;
+    this->ticks += this->hora * HOURS_TO_SECONDS;
+    this->ticks += this->minuto * MINUTE_TO_SECONDS;
+    this->ticks += this->segundo;
 }
 
 //Construtores:
@@ -195,13 +159,9 @@ bool Data::operator>(Data &d2)
            hora==d2.hora && minuto==d2.minuto && segundo<d2.segundo));
 }
 
-Data Data::operator-(Data &d2)
+int Data::operator-(Data &d2)
 {
-    Data aux(ticks-d2.getTicks());
-    if (ticks<d2.getTicks())        //Tratamento de excecao se for tentada uma subtracao impossivel
-        throw ExecaoCustomizada("Erro: Resultado eh data negativa, inverta parametros");
-    else
-        return aux;
+    return this->diffData(d2);
 }
 
 //Metodos get:
@@ -332,7 +292,7 @@ Data Data::dateNow()
 {
     time_t tempo= time(NULL);
     double a= double(tempo);
-    Data aux(a);
+    Data aux(tempo);
     return aux;
 }
 
@@ -369,6 +329,14 @@ string Data::getData() {
 }
 
 int Data::diffData(Data d2) {
-  int diff = ticks - d2.getTicks();
-  return diff / 60 / 60 / 24;
+  int diff = int(std::floor(ticks / 24. / 3600.) - std::floor(d2.getTicks() / 24. / 3600.));
+  return diff;
+}
+
+void Data::zerarHora() {
+    this->hora = 0;
+    this->minuto = 0;
+    this->segundo = 0;
+    dateToTicks();
+    validaData();
 }

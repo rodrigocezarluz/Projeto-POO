@@ -11,6 +11,7 @@
 #include "UC.h"
 #include "Fatura.h"
 #include "Servico.h"
+#include "Data.h"
 
 class Gerencia {
 private:
@@ -43,12 +44,12 @@ public:
 
     void cadastrarFaturas(const int &idCliente, int idUC, Fatura &fatura);
 
-    void cadastrarServico(const int &idFuncionario, Servico &servico, const std::string &data, int prioridade_servico);
+    void cadastrarServico(const int &idFuncionario, Servico &servico, const Data &data, int prioridade_servico);
 
-    void executarServicos(const int &idFuncionario, const std::string &data);
+    void executarServicos(const int &idFuncionario, const Data &data);
 
-    double receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento);
+    double receberPagamento(const int &idCliente, const int &idFaturaAPagar, const Data &dtPagamento);
 
-    void verificarInadimplentes(const time_t &now);
+    void verificarInadimplentes(Data &now);
 };
 #endif //MODULO1_FINANCEIRO_H

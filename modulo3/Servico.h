@@ -3,28 +3,29 @@
 
 #include <ctime>
 #include "UC.h"
+#include "Data.h"
 
 class Servico {
     static int next_id_servico;
     int id_servico; 
-    std::time_t inicio;
-    std::time_t fim;
+    Data inicio;
+    Data fim;
     UC uc;
 
 public:
     Servico();
 
-    Servico(time_t inicio, const UC &uc);
+    Servico(Data inicio, const UC &uc);
 
-    Servico(time_t inicio, time_t fim, const UC &uc);
+    Servico(Data inicio, Data fim, const UC &uc);
 
-    time_t getInicio() const;
+    Data getInicio() const;
 
-    void setInicio(time_t inicio);
+    void setInicio(Data inicio);
 
-    time_t getFim() const;
+    Data getFim() const;
 
-    void setFim(time_t fim);
+    void setFim(Data fim);
 
     virtual void executar();
 

@@ -6,6 +6,7 @@
 #define MODULO1_UC_H
 
 #include "Fatura.h"
+#include "Data.h"
 #include <vector>
 #include <stdexcept>
 
@@ -96,7 +97,7 @@ public:
      * 
      * @return double valor de pagamento da fatura.
      */
-    double pagar(const int &idFaturaAPagar, const time_t &dtPagamento);
+    double pagar(const int &idFaturaAPagar, const Data &dtPagamento);
 
 
     /**
@@ -111,7 +112,7 @@ public:
      * 
      * @return std::vector<Fatura> Vetor com faturas vencidas pertencencentes a UC.
      */
-    std::vector<Fatura> verificarVencimento(const time_t &now);
+    std::vector<Fatura> verificarVencimento(Data &now);
 
     /**
      * @brief Adicona uma nova fatura a lista de faturas da UC.

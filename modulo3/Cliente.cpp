@@ -64,7 +64,7 @@ void Cliente::removeUC(UC &remove_uc) {
     }
 }
 
-double Cliente::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
+double Cliente::pagar(const int &idFaturaAPagar, const Data &dtPagamento) {
     for (auto &uc : this->UCs) {
         for (auto &fatura: uc.getFaturas()) {
             if(fatura.getIdFatura() == idFaturaAPagar) {
@@ -86,7 +86,7 @@ std::vector<Fatura> Cliente::verificarPagamento() {
     return faturas;
 }
 
-std::vector<Fatura> Cliente::verificarVencimento(const time_t &now) {
+std::vector<Fatura> Cliente::verificarVencimento(Data &now) {
     std::vector<Fatura> faturas;
 
     for (auto &uc : this->UCs) {

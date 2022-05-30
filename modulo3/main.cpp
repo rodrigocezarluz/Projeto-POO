@@ -12,7 +12,6 @@
 #include "UCIluminacaoPublica.h"
 #include "UCIndustrial.h"
 #include "Fatura.h"
-#include "utils.h"
 #include "Funcionario.h"
 #include "Servico.h"
 #include "DesligEncerramento.h"
@@ -36,10 +35,10 @@ int main() {
     PessoaJuridica cl2;
     PessoaJuridica cl3;
 
-    Fatura fat1(100, 0, getTime(30, 5, 2022, 0, 0, 0), getTime(15, 5, 2022, 0, 0, 0), getTime(10, 5, 2022, 0, 0, 0));
-    Fatura fat2(100, 0, getTime(30, 5, 2022, 0, 0, 0), 0, getTime(10, 5, 2022, 0, 0, 0));
-    Fatura fat3(100, 0, getTime(14, 5, 2022, 0, 0, 0), 0, getTime(25, 4, 2022, 0, 0, 0));
-    Fatura fat4(100, 0, getTime(14, 5, 2022, 0, 0, 0), 0, getTime(25, 4, 2022, 0, 0, 0));
+    Fatura fat1(100, 0, Data(2022, 5, 30, 0, 0, 0), Data(2022, 5, 15, 0, 0, 0), Data(2022, 5, 10, 0, 0, 0));
+    Fatura fat2(100, 0, Data(2022, 5, 30, 0, 0, 0), 0, Data(2022, 5, 10, 0, 0, 0));
+    Fatura fat3(100, 0, Data(2022, 5, 14, 0, 0, 0), 0, Data(2022, 4, 25, 0, 0, 0));
+    Fatura fat4(100, 0, Data(2022, 5, 14, 0, 0, 0), 0, Data(2022, 4, 25, 0, 0, 0));
 
     Gerencia fin;
 
@@ -57,7 +56,7 @@ int main() {
     fin.cadastrarFaturas(1, 2, fat3);
     fin.cadastrarFaturas(2, 3, fat4);
 
-    time_t today = getTime(18, 5, 2022, 0, 0, 0);
+    Data today(2022, 5, 18, 0, 0, 0);
 
     double paidValue = fin.receberPagamento(1, fat3.getIdFatura(), today);
     std::cout << "Valor pagamento: R$" << paidValue << std::endl;
@@ -115,15 +114,9 @@ int main() {
 
     // INICIANDO TESTES DO MÓDULO 2
     //-------------------------------------------------------------------------------------------------------------------------
-    std::time_t t = std::time(0);   // get time now
-    std::tm* now = std::localtime(&t);
-    std::string data_hoje = std::to_string(now->tm_year + 1900) + "-" + 
-                                std::string(2 - std::to_string(now->tm_mon + 1).length(), '0').append(std::to_string(now->tm_mon + 1))  + "-" + 
-                                std::to_string(now->tm_mday);
-    
-    std::string data_amanha = std::to_string(now->tm_year + 1900) + "-" + 
-                                std::string(2 - std::to_string(now->tm_mon + 1).length(), '0').append(std::to_string(now->tm_mon + 1))  + "-" + 
-                                std::to_string(now->tm_mday + 1);
+
+    Data data_hoje = Data::dateNow();
+    Data data_amanha(data_hoje.getTicks()+(24*60*60));
 
 
     // instanciando Funcionarios
@@ -172,19 +165,19 @@ int main() {
     funcionarios[1].printAgendaServicos();
 
 
-    std::cout << "\nExtraindo demanda diaria (" << data_hoje << ") da fila do funcionario: " << funcionarios[0].getNome() << std::endl;
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[0].getNome() << std::endl;
     std::vector<Servico> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);    
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func1);
 
-    std::cout << "\nExtraindo demanda diaria (" << data_hoje << ") da fila do funcionario: " << funcionarios[1].getNome() << std::endl;
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[1].getNome() << std::endl;
     std::vector<Servico> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);    
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func2);
 
 
     // executando os servicos
-    std::cout << "Executando servicos do dia: " << data_hoje << std::endl;
+    std::cout << "Executando servicos do dia: " << data_hoje.getData() << std::endl;
     fin.executarServicos(0, data_hoje);
     fin.executarServicos(1, data_hoje);
 

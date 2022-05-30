@@ -4,6 +4,12 @@
 #include "Formato.h"
 #include "ExecaoCustomizada.h"
 
+//Constantes de Conversao
+#define YEAR_TO_SECONDS 31536000
+#define DAY_TO_SECONDS 86400
+#define HOURS_TO_SECONDS 3600
+#define MINUTE_TO_SECONDS 60
+
 using namespace std;
 
 class Data
@@ -30,7 +36,7 @@ public:
     bool operator==(Data &d2);       //Sobrecarga do operador de comparacao eq
     bool operator<(Data &d2);        //Sobrecarga do operador de comparacao lt
     bool operator>(Data &d2);        //Sobrecarga do operator de comparacao gt
-    Data operator-(Data &d2);         //Sobrecarga do operador de subtracao
+    int operator-(Data &d2);         //Sobrecarga do operador de subtracao
 
     //Metodos get:
     int getAno();
@@ -53,10 +59,11 @@ public:
     void setFormato(Formato valFormato);
 
     bool validaData();      //Verifica se todos os valores dos atributos estao dentro dos limites possiveis
-    Data dateNow();     //Retorna a data do presente momento
+    static Data dateNow();     //Retorna a data do presente momento
     void printData();       //Imprime a data na tela de acordo com o formato ja atribuido
     string getData();       //Retorna a data no formato de string
     int diffData(Data);    // Retorna a diferença entre duas datas em dias
+    void zerarHora();      // zera os valores de hora, minuto e segundo
 };
 
 #endif // DATA_H_INCLUDED

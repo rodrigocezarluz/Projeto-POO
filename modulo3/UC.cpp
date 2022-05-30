@@ -3,7 +3,6 @@
 //
 
 #include "UC.h"
-#include "Fatura.h"
 #include <cstdlib>
 
 
@@ -49,7 +48,7 @@ void UC::setFaturas(std::vector<Fatura> &faturas) {
     this->faturas = std::move(faturas);
 }
 
-double UC::pagar(const int &idFaturaAPagar, const time_t &dtPagamento) {
+double UC::pagar(const int &idFaturaAPagar, const Data &dtPagamento) {
     for (auto &fatura: this->faturas) {
         if(fatura.getIdFatura() == idFaturaAPagar) {
             fatura.setDtPagamento(dtPagamento);
@@ -86,11 +85,11 @@ std::vector<Fatura> UC::verificarPagamento() {
     return faturasApagar;
 }
 
-std::vector<Fatura> UC::verificarVencimento(const time_t &now) {
+std::vector<Fatura> UC::verificarVencimento(Data &now) {
     std::vector<Fatura> faturasVencidas;
 
     for (auto &fat : this->faturas) {
-        if (!fat.verificarPagamento() && now > fat.getDtVencimento()) {
+        if (!fat.verificarPagamento() && now.diffData(fat.getDtVencimento()) > 0) {
             faturasVencidas.push_back(fat);
         }
     }

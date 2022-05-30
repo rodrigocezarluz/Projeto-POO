@@ -67,7 +67,7 @@ void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) 
     throw std::invalid_argument( "O cliente da UC nao existe." );
 }
 
-void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const std::string &data, int prioridade_servico) {
+void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const Data &data, int prioridade_servico) {
     for (auto &funcionario : this->funcionarios) {
         if (funcionario.getIDFuncionario() == idFuncionario){
             funcionario.adicionarServico(servico, data, prioridade_servico);
@@ -78,7 +78,7 @@ void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, cons
     throw std::invalid_argument("O funcionario nao existe.");
 }
 
-void Gerencia::executarServicos(const int &idFuncionario, const std::string &data) {
+void Gerencia::executarServicos(const int &idFuncionario, const Data &data) {
     for (auto &funcionario : this->funcionarios) {
         if (funcionario.getIDFuncionario() == idFuncionario) {
             funcionario.executarServicos(data);
@@ -87,7 +87,7 @@ void Gerencia::executarServicos(const int &idFuncionario, const std::string &dat
     }
 }
 
-double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const time_t &dtPagamento) {
+double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const Data &dtPagamento) {
     for (auto &cliente : this->clientes) {
         if (cliente.getIdCliente() == idCliente) {
             return cliente.pagar(idFaturaAPagar, dtPagamento);
@@ -95,7 +95,7 @@ double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPaga
     }
 }
 
-void Gerencia::verificarInadimplentes(const time_t &now) {
+void Gerencia::verificarInadimplentes(Data &now) {
     relatorioInandimplentes.clear();
     for (auto &cliente : this->clientes) {
         std::vector<Fatura> faturasVencidas = cliente.verificarVencimento(now);

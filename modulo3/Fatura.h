@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
-#include "utils.h"
+#include "Data.h"
 
 class Fatura {
 
@@ -17,9 +17,9 @@ private:
     int idFatura;
     double valorInicial;
     double consumoEnergia;
-    time_t dtVencimento;
-    time_t dtPagamento;
-    time_t dtEmissao;
+    Data dtVencimento;
+    Data dtPagamento;
+    Data dtEmissao;
    
 
 public:
@@ -28,7 +28,7 @@ public:
 
     Fatura();
 
-    Fatura(const double valorInicial, const double consumoEnergia, const time_t dtVencimento, const time_t dtPagamento, const time_t dtEmissao);
+    Fatura(const double valorInicial, const double consumoEnergia, const Data dtVencimento, const Data dtPagamento, const Data dtEmissao);
 
     Fatura(const Fatura& f);
 
@@ -44,19 +44,19 @@ public:
 
     void setConsumoEnergia(double consumoEnergia);
 
-    time_t getDtVencimento() const;
+    Data getDtVencimento() const;
 
-    void setDtVencimento(time_t dtVencimento);
+    void setDtVencimento(Data dtVencimento);
 
-    time_t getDtPagamento() const;
+    Data getDtPagamento() const;
 
-    void setDtPagamento(time_t dtPagamento);
+    void setDtPagamento(Data dtPagamento);
 
-    time_t getDtEmissao() const;
+    Data getDtEmissao() const;
 
-    void setDtEmissao(time_t dtEmissao);
+    void setDtEmissao(Data dtEmissao);
 
-    double calcularValor(time_t now);
+    double calcularValor(Data now);
 
     bool verificarPagamento();
 

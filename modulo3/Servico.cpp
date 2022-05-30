@@ -2,32 +2,32 @@
 
 int Servico::next_id_servico = 0;
 
-Servico::Servico() : id_servico(next_id_servico++), inicio((time_t)(0)), fim((time_t)(0)){
+Servico::Servico() : id_servico(next_id_servico++), inicio(Data(0)), fim(Data(0)){
 
 }
 
-Servico::Servico(time_t inicio, const UC &uc) : inicio(inicio), uc(uc), id_servico(next_id_servico++) , fim((time_t)(0)){
+Servico::Servico(Data inicio, const UC &uc) : inicio(inicio), uc(uc), id_servico(next_id_servico++) , fim(Data(0)){
 
 }
 
-Servico::Servico(time_t inicio, time_t fim, const UC &uc) : inicio(inicio), fim(fim), uc(uc), id_servico(next_id_servico++) {
+Servico::Servico(Data inicio, Data fim, const UC &uc) : inicio(inicio), fim(fim), uc(uc), id_servico(next_id_servico++) {
 
 }
 
 
-time_t Servico::getInicio() const {
+Data Servico::getInicio() const {
     return inicio;
 }
 
-void Servico::setInicio(time_t inicio) {
+void Servico::setInicio(Data inicio) {
     Servico::inicio = inicio;
 }
 
-time_t Servico::getFim() const {
+Data Servico::getFim() const {
     return fim;
 }
 
-void Servico::setFim(time_t fim) {
+void Servico::setFim(Data fim) {
     Servico::fim = fim;
 }
 

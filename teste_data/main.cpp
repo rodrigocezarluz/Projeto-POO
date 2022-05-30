@@ -6,25 +6,16 @@
 #include <ctime>
 
 int main() {
-    // Data data(time(0));
 
-    // Data data_hoje = Data::dateNow();   // get time now
-    
-    // Data data_amanha = Data::dateNow();
-    // data_amanha.setDia(data_amanha.getDia()+1);
+    Data data(2022, 5, 30, 0, 20, 0);
+    Data data2 = Data::dateNow();
 
-    // std::cout << "hoje: " << data_hoje.getData() << std::endl;
-    // std::cout << "amanha: " << data_amanha.getData() << std::endl;
+    data.zerarHora();
 
-    // std::cout << "amanha: " << Data::dateNow().getData() << std::endl;
-    // std::cout << "amanha: " << data.dateNow().getData() << std::endl;
-    // std::cout << "amanha: " << data.getData() << std::endl;
-
-    Data data(2022, 30, 5, 0, 0, 0);
-    Data data2(2022, 28, 5, 0, 0, 0);
     std::cout << "data: " << data.getData() << std::endl;
     std::cout << "data2: " << data2.getData() << std::endl;
-    std::cout << "diff dias: " << (data-data2).getData() << std::endl;
+    std::cout << "diff dias: " << data.diffData(data2) << std::endl;
+    std::cout << "diff dias operator: " << data-data2 << std::endl;
 
     //-------------------------------------------------------------------------------------------------------------------------
 

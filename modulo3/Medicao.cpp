@@ -1,7 +1,4 @@
 #include "Medicao.h"
-#include "Fatura.h"
-
-
 
 Medicao::Medicao() : Servico(){}
 

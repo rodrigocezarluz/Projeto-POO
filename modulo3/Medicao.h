@@ -3,6 +3,7 @@
 
 #include "Servico.h"
 #include "Data.h"
+#include "Fatura.h"
 
 
 class Medicao : public Servico {

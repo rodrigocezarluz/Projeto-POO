@@ -5,14 +5,14 @@
 #include "Fatura.h"
 
 const double TAXA_JUROS = 1.02;
-const double PRECO_ENERGIA = 0.96574002;  // preço da energia em R$/kW ; valor referencia CEMIG maio de 2022]
+const double Fatura::PRECO_ENERGIA = 0.96574002;  // preço da energia em R$/kW ; valor referencia CEMIG maio de 2022]
 int Fatura::nextIdFatura = 0;
 
 
 Fatura::Fatura() : idFatura(nextIdFatura++), dtPagamento(0) {}
 
-Fatura::Fatura(const double valorInicial, const double consumoEnergia, const time_t dtVencimento, const time_t dtPagamento,
-               const time_t dtEmissao) : idFatura(nextIdFatura++), valorInicial(valorInicial), consumoEnergia(consumoEnergia),
+Fatura::Fatura(const double valorInicial, const double consumoEnergia, const Data dtVencimento, const Data dtPagamento,
+               const Data dtEmissao) : idFatura(nextIdFatura++), valorInicial(valorInicial), consumoEnergia(consumoEnergia),
                                    dtVencimento(dtVencimento), dtPagamento(dtPagamento), dtEmissao(dtEmissao) {}
 
 Fatura::Fatura(const Fatura& f) : idFatura(f.idFatura), valorInicial(f.valorInicial), consumoEnergia(f.consumoEnergia),
@@ -42,32 +42,32 @@ void Fatura::setConsumoEnergia(double consumoEnergia) {
     this->consumoEnergia = consumoEnergia;
 }
 
-time_t Fatura::getDtVencimento() const {
+Data Fatura::getDtVencimento() const {
     return dtVencimento;
 }
 
-void Fatura::setDtVencimento(time_t dtVencimento) {
+void Fatura::setDtVencimento(Data dtVencimento) {
     this->dtVencimento = dtVencimento;
 }
 
-time_t Fatura::getDtPagamento() const {
+Data Fatura::getDtPagamento() const {
     return dtPagamento;
 }
 
-void Fatura::setDtPagamento(time_t dtPagamento) {
+void Fatura::setDtPagamento(Data dtPagamento) {
     this->dtPagamento = dtPagamento;
 }
 
-time_t Fatura::getDtEmissao() const {
+Data Fatura::getDtEmissao() const {
     return dtEmissao;
 }
 
-void Fatura::setDtEmissao(time_t dtEmissao) {
+void Fatura::setDtEmissao(Data dtEmissao) {
     this->dtEmissao = dtEmissao;
 }
 
-double Fatura::calcularValor(time_t now) {
-    int diasVencidos = diffDays(now, this->dtVencimento);
+double Fatura::calcularValor(Data now) {
+    int diasVencidos = now.diffData(this->dtVencimento);
 
     if (diasVencidos > 0) {
         return valorInicial * std::pow(TAXA_JUROS,  diasVencidos);
@@ -77,7 +77,7 @@ double Fatura::calcularValor(time_t now) {
 }
 
 bool Fatura::verificarPagamento() {
-    return dtPagamento != 0.0;
+    return dtPagamento.getTicks() != 0;
 }
 
 bool Fatura::operator==(const Fatura& other) {

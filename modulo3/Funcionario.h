@@ -1,10 +1,10 @@
 #ifndef FUNCIONARIO_H
 #define FUNCIONARIO_H
 
-#include <string>
 #include <vector>
 #include <map>
 #include "Servico.h"
+#include "Data.h"
 
 class Funcionario {
     private:    
@@ -12,7 +12,7 @@ class Funcionario {
         static int maxServicos;        
         int idFuncionario;
         std::string nome;
-        std::map<std::string, std::vector<Servico>> servicos = {};
+        std::map<long, std::vector<Servico>> servicos = {};
         
     public:
         /**
@@ -42,13 +42,13 @@ class Funcionario {
          * @param data Data na qual o serviço será executado, formato yyyy-mm-dd
          * @param prioridade_servico Prioridade de execução do serviço. Prioridade máxima para 0.
          */
-        void adicionarServico(Servico &servico, const std::string &data, int prioridade_servico);        
+        void adicionarServico(Servico &servico, Data data, int prioridade_servico);        
         
         /**
          * @brief Extrai a lista de serviços que o funcionário deve executar na data atual. 
          * Formato padrão da data: yyyy-mm-dd
          */
-        std::vector<Servico> extrairServicos(const std::string &data);
+        std::vector<Servico> extrairServicos(Data data);
         
 
         /**
@@ -82,22 +82,22 @@ class Funcionario {
          /**
          * @brief Retorna a agenda de serviços do funcionário. Todas as datas e serviços já agendados nessas datas.
          */
-        std::map<std::string, std::vector<Servico>> const &getServicos() const;
+        std::map<long, std::vector<Servico>> const &getServicos() const;
 
          /**
          * @brief Seta a agenda de serviços do funcionário com base em uma agenda já existente
          * @param servicos Agenda de serviços que será copiada
          */
-        void setServicos(std::map<std::string, std::vector<Servico>> &servicos);        
+        void setServicos(std::map<long, std::vector<Servico>> &servicos);        
 
 
         /**
          * @brief Retorna a quantidade de serviços que estão na fila do funcionário em uma dada data
          * @param data Data na qual se quer avaliar a quantidade de serviços na fila
          */
-        int getQtdServicos(const std::string data_agenda) const;
+        int getQtdServicos(Data data_agenda) const;
 
-        void executarServicos(const std::string &data);
+        void executarServicos(Data data);
 
 
         /**
