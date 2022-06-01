@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include "UC.h"
 #include "Data.h"
+#include "Endereco.h"
 
 class Cliente {
 private:
@@ -17,6 +18,7 @@ private:
     int idCliente;
     std::string nome, telefoneContato;
     std::vector<UC> UCs;
+    Endereco endereco;
 
 public:
     Cliente();
@@ -36,6 +38,10 @@ public:
     std::string getTelefoneContato() const;
 
     void setTelefoneContato(const std::string &telefoneContato);
+
+    void setEndereco();
+
+    Endereco getEndereco();
 
     double pagar(const int &idFaturaAPagar, const Data &dtPagamento);
 
