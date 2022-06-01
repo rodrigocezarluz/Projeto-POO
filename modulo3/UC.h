@@ -7,6 +7,7 @@
 
 #include "Fatura.h"
 #include "Data.h"
+#include "Endereco.h"
 #include <vector>
 #include <stdexcept>
 
@@ -17,7 +18,7 @@ private:
     std::vector<Fatura> faturas;
     double consumoEnergiaTotal;
     double consumoEnergiaMedido;
-
+    Endereco endereco;
 
 public:
     UC();
@@ -90,6 +91,18 @@ public:
     void setFaturas(std::vector<Fatura> &faturas);
 
     /**
+     * @brief Define o endereco da UC.
+     */
+    void setEndereco();
+
+    /**
+     * @brief Retorna o endereco da UC.
+     * 
+     * @return o parametro endereco.
+     */
+    Endereco getEndereco();
+
+    /**
      * @brief Método utilizado para realizar o pagamento de uma dada fatura.
      * 
      * @param idFaturaAPagar Número de id da fatura que será paga.
@@ -139,5 +152,6 @@ public:
      * @param UC UC que será utilizada para realizar a operação de atribuição.
      */   
     UC& operator=(const UC& other);
+
 };
 #endif //MODULO1_UC_H
