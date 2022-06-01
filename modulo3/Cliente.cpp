@@ -36,6 +36,14 @@ void Cliente::setTelefoneContato(const std::string &telefoneContato) {
     this->telefoneContato = telefoneContato;
 }
 
+void Cliente::setEndereco(){
+    this->endereco = endereco;
+}
+
+Endereco Cliente::getEndereco(){
+    return endereco;
+}
+
 std::vector<UC> const &Cliente::getUCs() const {
     return UCs;
 }
