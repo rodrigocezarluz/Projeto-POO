@@ -48,6 +48,14 @@ void UC::setFaturas(std::vector<Fatura> &faturas) {
     this->faturas = std::move(faturas);
 }
 
+void UC::setEndereco(){
+    this->endereco = endereco;
+}
+
+Endereco UC::getEndereco(){
+    return endereco;
+}
+
 double UC::pagar(const int &idFaturaAPagar, const Data &dtPagamento) {
     for (auto &fatura: this->faturas) {
         if(fatura.getIdFatura() == idFaturaAPagar) {
