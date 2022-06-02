@@ -3,18 +3,21 @@
 
 LocalizacaoGeografica::LocalizacaoGeografica() {}
 
-double LocalizacaoGeografica::getLatitude() const {
+LocalizacaoGeografica::LocalizacaoGeografica(double latitude, double longitude) : latitude(latitude),
+                                                                                  longitude(longitude) {}
+
+double LocalizacaoGeografica::getLatitude() {
     return latitude;
 }
 
-void LocalizacaoGeografica::setLatitude(const double &latitude) {
+void LocalizacaoGeografica::setLatitude(double latitude) {
     this->latitude = latitude;
 }
 
-double LocalizacaoGeografica::getLongitude() const {
+double LocalizacaoGeografica::getLongitude() {
     return longitude;
 }
 
-void LocalizacaoGeografica::setLongitude(const double &longitude) {
+void LocalizacaoGeografica::setLongitude(double longitude) {
     this->longitude = longitude;
 }

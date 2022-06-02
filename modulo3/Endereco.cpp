@@ -1,8 +1,19 @@
 #include "Endereco.h"
 #include "LocalizacaoGeografica.h"
-#include <iostream>
 
-Endereco::Endereco() {}
+Endereco::Endereco() : LocalizacaoGeografica(0.,0.) {}
+
+Endereco::Endereco(const std::string &logradouro, const std::string &bairro, const std::string &complemento,
+                   const std::string &cep, const std::string &cidade, const std::string &estado, int numero)
+        : LocalizacaoGeografica(0.,0.), logradouro(logradouro), bairro(bairro), complemento(complemento), cep(cep), cidade(cidade), estado(estado),
+          numero(numero) {}
+
+Endereco::Endereco(double latitude, double longitude, const std::string &logradouro, const std::string &bairro,
+                   const std::string &complemento, const std::string &cep, const std::string &cidade,
+                   const std::string &estado, int numero) : LocalizacaoGeografica(latitude, longitude),
+                                                            logradouro(logradouro), bairro(bairro),
+                                                            complemento(complemento), cep(cep), cidade(cidade),
+                                                            estado(estado), numero(numero) {}
 
 int Endereco::getNumero() const {
     return numero;

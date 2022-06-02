@@ -31,7 +31,7 @@ const std::vector<Funcionario> &Gerencia::getFuncionarios() const {
     return funcionarios;
 }
 
-void Gerencia::setFuncionarios(const std::vector<Funcionario> &funcionario) {
+void Gerencia::setFuncionarios(const std::vector<Funcionario> &funcionarios) {
     this->funcionarios = funcionarios;
 }
 
@@ -85,6 +85,7 @@ void Gerencia::executarServicos(const int &idFuncionario, const Data &data) {
             return;
         }
     }
+    throw std::invalid_argument("O funcionario nao existe.");
 }
 
 double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const Data &dtPagamento) {
@@ -93,6 +94,7 @@ double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPaga
             return cliente.pagar(idFaturaAPagar, dtPagamento);
         }
     }
+    throw std::invalid_argument("O cliente nao existe.");
 }
 
 void Gerencia::verificarInadimplentes(Data &now) {

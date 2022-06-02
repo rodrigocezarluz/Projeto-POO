@@ -14,9 +14,12 @@ class PessoaFisica : public Cliente {
 public:
     using Cliente::Cliente;
 
+    PessoaFisica(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
+                 const Endereco &endereco, const string &cpf);
+
     bool validarCPF(std::string cpf_);
 
-    const std::string &getCpf() const;
+    const string &getCpf() const;
 
     void setCpf(const std::string &cpf);
 };

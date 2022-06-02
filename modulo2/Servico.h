@@ -17,7 +17,6 @@ public:
 
     Servico(time_t inicio, time_t fim, const UC &uc);
 
-
     time_t getInicio() const;
 
     void setInicio(time_t inicio);

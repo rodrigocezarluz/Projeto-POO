@@ -1,9 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <ctime>
 #include "Gerencia.h"
-#include "Cliente.h"
 #include "PessoaFisica.h"
 #include "PessoaJuridica.h"
 #include "UC.h"
@@ -118,7 +115,6 @@ int main() {
     Data data_hoje = Data::dateNow();
     Data data_amanha(data_hoje.getTicks()+(24*60*60));
 
-
     // instanciando Funcionarios
     Funcionario::setMaxServicos(8);
     Funcionario funcionario1("Jose Silva");
@@ -136,7 +132,6 @@ int main() {
     ReligacaoPagamento servico13, servico14;
     TrocaMedidor servico15, servico16;
 
-    
     std::cout << "Adicionando servicos na fila dos funcionarios..." << std::endl;
 
     fin.cadastrarServico(0, servico1, data_hoje, 1);
@@ -166,12 +161,12 @@ int main() {
 
 
     std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[0].getNome() << std::endl;
-    std::vector<Servico> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);    
+    std::vector<Servico> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func1);
 
     std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[1].getNome() << std::endl;
-    std::vector<Servico> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);    
+    std::vector<Servico> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func2);
 
@@ -185,9 +180,46 @@ int main() {
     funcionarios2[0].printAgendaServicos();
     funcionarios2[1].printAgendaServicos();
 
-
     //-------------------------------------------------------------------------------------------------------------------------
 
+    std::cout << " " << std::endl;
+    std::cout << " " << std::endl;
 
+    // INICIANDO TESTES DO MÓDULO 3
+    //-------------------------------------------------------------------------------------------------------------------------
+    LocalizacaoGeografica localizacaoGeografica1(1212121212, 2121212121);
+    Endereco endereco1(localizacaoGeografica1.getLatitude(),
+                       localizacaoGeografica1.getLongitude(),
+                       "Rua Barbacena",
+                       "Carlos Prates",
+                       "casa a",
+                       "31210-825",
+                       "Belo Horizonte",
+                       "Minas Gerais",
+                       425);
+
+    u1.setEndereco(endereco1);
+    vector<UC> ucs{ u1 };
+    PessoaFisica cl4("Thales Nunes", "+55 31 98115-8474", ucs, endereco1, "71435425049");
+
+    Medicao servico17(data_amanha, u1);
+    int quantidadeFaturasAnterior = (int)u1.getFaturas().size();
+    fin.cadastrarServico(0, servico17, data_amanha, 1);
+    servico17.executar();
+
+    int quantidadeFaturasAtual = (int) u1.getFaturas().size();
+
+    if (quantidadeFaturasAtual > quantidadeFaturasAnterior) {
+        std::cout << "Fatura gerada com sucesso: faturas anterior: " << quantidadeFaturasAnterior << " faturas atual: "
+        << quantidadeFaturasAtual << std::endl;
+    }
+
+    Fatura fat5 = u1.getFaturas()[0];
+
+    double valor = fat5.calcularValor(data_hoje);
+
+    std::cout << "Valor calculado da fatura 1: " << valor << std::endl;
+
+    //-------------------------------------------------------------------------------------------------------------------------
     return 0;
 }

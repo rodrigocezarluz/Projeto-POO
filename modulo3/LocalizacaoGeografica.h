@@ -3,18 +3,21 @@
 
 class LocalizacaoGeografica {
 private:
-    double latitude, longitude;
+    double latitude;
+    double longitude;
 
 public:
     LocalizacaoGeografica();
 
-    double getLatitude() const;
+    LocalizacaoGeografica(double latitude, double longitude);
 
-    void setLatitude(const double &latitude);
+    double getLatitude();
 
-    double getLongitude() const;
+    void setLatitude(double latitude);
 
-    void setLongitude(const double &longitude);
+    double getLongitude();
+
+    void setLongitude(double longitude);
 
 };
 #endif

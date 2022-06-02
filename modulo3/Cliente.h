@@ -13,10 +13,10 @@
 #include "Endereco.h"
 
 class Cliente {
-private:
     static int nextIdCliente;
     int idCliente;
-    std::string nome, telefoneContato;
+    std::string nome;
+    std::string telefoneContato;
     std::vector<UC> UCs;
     Endereco endereco;
 
@@ -26,6 +26,9 @@ public:
     Cliente(const std::string &nome, const std::vector<UC> &uCs);
 
     Cliente(const Cliente& c);
+
+    Cliente(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
+            const Endereco &endereco);
 
     int getIdCliente() const;
 
@@ -39,9 +42,9 @@ public:
 
     void setTelefoneContato(const std::string &telefoneContato);
 
-    void setEndereco();
+    const Endereco &getEndereco() const;
 
-    Endereco getEndereco();
+    void setEndereco(const Endereco &endereco);
 
     double pagar(const int &idFaturaAPagar, const Data &dtPagamento);
 
@@ -62,5 +65,7 @@ public:
     bool operator==(const Cliente& other);
 
     Cliente& operator=(const Cliente& other);
+
+
 };
 #endif //MODULO1_CLIENTE_H

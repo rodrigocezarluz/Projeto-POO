@@ -84,23 +84,9 @@ public:
      */
     std::vector<Fatura> const & getFaturas() const;
 
+    const Endereco &getEndereco() const;
 
-     /**
-     * @brief Define um conjunto de faturas para a UC.
-     */
-    void setFaturas(std::vector<Fatura> &faturas);
-
-    /**
-     * @brief Define o endereco da UC.
-     */
-    void setEndereco();
-
-    /**
-     * @brief Retorna o endereco da UC.
-     * 
-     * @return o parametro endereco.
-     */
-    Endereco getEndereco();
+    void setEndereco(const Endereco &endereco);
 
     /**
      * @brief Método utilizado para realizar o pagamento de uma dada fatura.

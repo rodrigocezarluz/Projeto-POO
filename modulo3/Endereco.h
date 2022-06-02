@@ -2,14 +2,25 @@
 #define ENDERECO_H
 
 #include <string>
+#include "LocalizacaoGeografica.h"
 
-class Endereco {
-private:
-    std::string logradouro, bairro, complemento, cep, cidade, estado;
+class Endereco: public LocalizacaoGeografica {
+    std::string logradouro;
+    std::string bairro;
+    std::string complemento;
+    std::string cep;
+    std::string cidade;
+    std::string estado;
     int numero;
 
 public:
     Endereco();
+
+    Endereco(const string &logradouro, const string &bairro, const string &complemento, const string &cep,
+             const string &cidade, const string &estado, int numero);
+
+    Endereco(double latitude, double longitude, const string &logradouro, const string &bairro,
+             const string &complemento, const string &cep, const string &cidade, const string &estado, int numero);
 
     int getNumero() const;
 

@@ -44,16 +44,12 @@ std::vector<Fatura> const & UC::getFaturas() const{
     return faturas;
 }
 
-void UC::setFaturas(std::vector<Fatura> &faturas) {
-    this->faturas = std::move(faturas);
-}
-
-void UC::setEndereco(){
-    this->endereco = endereco;
-}
-
-Endereco UC::getEndereco(){
+const Endereco &UC::getEndereco() const {
     return endereco;
+}
+
+void UC::setEndereco(const Endereco &endereco) {
+    UC::endereco = endereco;
 }
 
 double UC::pagar(const int &idFaturaAPagar, const Data &dtPagamento) {

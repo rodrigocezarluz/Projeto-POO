@@ -6,11 +6,24 @@
 
 int Cliente::nextIdCliente = 0;
 
-Cliente::Cliente() : idCliente(nextIdCliente++) {}
+Cliente::Cliente() : idCliente(nextIdCliente++) {
+    Endereco endereco1;
+    this->endereco = endereco1;
+}
 
-Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : idCliente(nextIdCliente++), nome(nome), UCs(uCs) {}
+Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : idCliente(nextIdCliente++), nome(nome), UCs(uCs) {
+    Endereco endereco1;
+    this->endereco = endereco1;
+}
 
-Cliente::Cliente(const Cliente& c) : idCliente(c.idCliente), nome(c.nome), UCs(c.UCs) {}
+Cliente::Cliente(const Cliente& c) : idCliente(c.idCliente), nome(c.nome), UCs(c.UCs) {
+    Endereco endereco1;
+    this->endereco = endereco1;
+}
+
+Cliente::Cliente(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
+                 const Endereco &endereco) : idCliente(nextIdCliente++), nome(nome), telefoneContato(telefoneContato),
+                                             UCs(uCs), endereco(endereco) {}
 
 int Cliente::getIdCliente() const {
     return idCliente;
@@ -36,12 +49,12 @@ void Cliente::setTelefoneContato(const std::string &telefoneContato) {
     this->telefoneContato = telefoneContato;
 }
 
-void Cliente::setEndereco(){
-    this->endereco = endereco;
+const Endereco &Cliente::getEndereco() const {
+    return endereco;
 }
 
-Endereco Cliente::getEndereco(){
-    return endereco;
+void Cliente::setEndereco(const Endereco &endereco) {
+    Cliente::endereco = endereco;
 }
 
 std::vector<UC> const &Cliente::getUCs() const {

@@ -6,12 +6,20 @@
 #include <string>
 #include <vector>
 
+PessoaFisica::PessoaFisica(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
+                           const Endereco &endereco, const string &cpf) : Cliente(nome, telefoneContato, uCs,
+                                                                                  endereco), CPF(cpf) {}
+
 void PessoaFisica::setCpf(const std::string &cpf) {
     if (this->validarCPF(cpf)) {
         CPF = cpf;
     } else {
         throw std::invalid_argument( "CPF invalido." );
     }
+}
+
+const string &PessoaFisica::getCpf() const {
+    return CPF;
 }
 
 bool PessoaFisica::validarCPF(std::string cpf_) {
@@ -55,7 +63,6 @@ bool PessoaFisica::validarCPF(std::string cpf_) {
     }
     return false;
 }
-
 // inline bool validaCPF(const std::string& cpf)
 // {
 //     unsigned int lenght = cpf.size();

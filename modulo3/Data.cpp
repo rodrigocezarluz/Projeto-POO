@@ -329,7 +329,7 @@ string Data::getData() {
 }
 
 int Data::diffData(Data d2) {
-  int diff = int(std::floor(ticks / 24. / 3600.) - std::floor(d2.getTicks() / 24. / 3600.));
+  int diff = int(floor(ticks / 24. / 3600.) - floor(d2.getTicks() / 24. / 3600.));
   return diff;
 }
 
