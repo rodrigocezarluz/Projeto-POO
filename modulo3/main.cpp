@@ -188,6 +188,9 @@ int main() {
 
     // INICIANDO TESTES DO MÓDULO 3
     //-------------------------------------------------------------------------------------------------------------------------
+    Funcionario funcionario3("Jose aldo");
+    fin.cadastrarFuncionario(funcionario3);
+
     LocalizacaoGeografica localizacaoGeografica1(1212121212, 2121212121);
     Endereco endereco1(localizacaoGeografica1.getLatitude(),
                        localizacaoGeografica1.getLongitude(),
@@ -198,24 +201,34 @@ int main() {
                        "Belo Horizonte",
                        "Minas Gerais",
                        425);
+    UC uc;
+    for (auto& cliente: fin.getClientes()) {
+        for (auto& ucAux: cliente.getUCs()) {
+            if (ucAux == u1) {
+                uc = ucAux;
+            }
+        }
+    }
 
-    u1.setEndereco(endereco1);
-    vector<UC> ucs{ u1 };
+    uc.setEndereco(endereco1);
+    vector<UC> ucs{ uc };
     PessoaFisica cl4("Thales Nunes", "+55 31 98115-8474", ucs, endereco1, "71435425049");
 
     Medicao servico17(data_amanha, u1);
-    int quantidadeFaturasAnterior = (int)u1.getFaturas().size();
-    fin.cadastrarServico(0, servico17, data_amanha, 1);
-    servico17.executar();
+    fin.cadastrarServico(2, servico17, data_amanha, 1);
 
-    int quantidadeFaturasAtual = (int) u1.getFaturas().size();
+    int quantidadeFaturasAnterior = (int)uc.getFaturas().size();
+
+    fin.executarServicos(2, data_amanha);
+
+    int quantidadeFaturasAtual = (int) uc.getFaturas().size();
 
     if (quantidadeFaturasAtual > quantidadeFaturasAnterior) {
-        std::cout << "Fatura gerada com sucesso: faturas anterior: " << quantidadeFaturasAnterior << " faturas atual: "
+        std::cout << "Fatura gerada com sucesso: Qtd faturas anterior: " << quantidadeFaturasAnterior << " Qtd faturas atual: "
         << quantidadeFaturasAtual << std::endl;
     }
 
-    Fatura fat5 = u1.getFaturas()[0];
+    Fatura fat5 = uc.getFaturas()[0];
 
     double valor = fat5.calcularValor(data_hoje);
 

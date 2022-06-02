@@ -86,9 +86,11 @@ std::vector<Servico> Funcionario::extrairServicos(Data data){
 void Funcionario::executarServicos(Data data) {
     data.zerarHora();
     long key = data.getTicks();
+
     if (!(this->servicos.count(key))){
         return;
     }
+
     for (auto& ser: this->servicos.at(key)){
         ser.setInicio(time(0));
         ser.executar();

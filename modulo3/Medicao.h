@@ -8,7 +8,7 @@
 
 class Medicao : public Servico {
     public:
-        Medicao();
+    Medicao();
 
     Medicao(const Data &inicio, const UC &uc);
 

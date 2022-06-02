@@ -37,7 +37,6 @@ UC & Servico::getUC()  {
 
 
 void Servico::executar() {
-
     this->setFim(time(0));
 }
 

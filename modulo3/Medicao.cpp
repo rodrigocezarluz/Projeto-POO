@@ -1,6 +1,6 @@
 #include "Medicao.h"
 
-Medicao::Medicao() : Servico(){}
+Medicao::Medicao() : Servico() {}
 
 Medicao::Medicao(const Data &inicio, const UC &uc) : Servico(inicio, uc) {}
 
@@ -21,7 +21,7 @@ void Medicao::executar() {
     fatura.setDtEmissao(dt_Emissao);
     fatura.setConsumoEnergia(consumoAtualFatura);
     fatura.setValorInicial(consumoAtualFatura*Fatura::PRECO_ENERGIA);
-    this->getUC().addFatura(fatura);
+    Servico::getUC().addFatura(fatura);
 }
 
 
