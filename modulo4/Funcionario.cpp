@@ -148,4 +148,8 @@ std::ostream& operator << (std::ostream &out, const Funcionario &funcionario){
 
 }
 
+void Funcionario::verificarServicos() {
+
+}
+
     

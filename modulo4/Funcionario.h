@@ -99,6 +99,8 @@ class Funcionario {
 
         void executarServicos(Data data);
 
+        virtual void verificarServicos();
+
 
         /**
          * @brief Imprime uma lista de serviços 
@@ -121,7 +123,6 @@ class Funcionario {
          * \brief Streaming operator, define como Funcionario será impresso         
          */
         friend std::ostream& operator << (std::ostream &out, const Funcionario &funcionario);
-
 
 };
 
