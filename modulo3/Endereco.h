@@ -16,11 +16,11 @@ class Endereco: public LocalizacaoGeografica {
 public:
     Endereco();
 
-    Endereco(const string &logradouro, const string &bairro, const string &complemento, const string &cep,
-             const string &cidade, const string &estado, int numero);
+    Endereco(const std::string &logradouro, const std::string &bairro, const std::string &complemento, const std::string &cep,
+             const std::string &cidade, const std::string &estado, int numero);
 
-    Endereco(double latitude, double longitude, const string &logradouro, const string &bairro,
-             const string &complemento, const string &cep, const string &cidade, const string &estado, int numero);
+    Endereco(double latitude, double longitude, const std::string &logradouro, const std::string &bairro,
+             const std::string &complemento, const std::string &cep, const std::string &cidade, const std::string &estado, int numero);
 
     int getNumero() const;
 

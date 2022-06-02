@@ -17,6 +17,7 @@
 #include "Medicao.h"
 #include "ReligacaoPagamento.h"
 #include "TrocaMedidor.h"
+#include "LocalizacaoGeografica.h"
 
 
 int main() {

@@ -27,7 +27,7 @@ public:
 
     Cliente(const Cliente& c);
 
-    Cliente(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
+    Cliente(const std::string &nome, const std::string &telefoneContato, const vector<UC> &uCs,
             const Endereco &endereco);
 
     int getIdCliente() const;
