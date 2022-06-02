@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <functional>
 #include "Servico.h"
 #include "Data.h"
 
@@ -12,7 +13,7 @@ class Funcionario {
         static int maxServicos;        
         int idFuncionario;
         std::string nome;
-        std::map<long, std::vector<Servico>> servicos = {};
+        std::map<long, std::vector< std::reference_wrapper<Servico> > > servicos = {};
         
     public:
         /**
@@ -48,7 +49,7 @@ class Funcionario {
          * @brief Extrai a lista de serviços que o funcionário deve executar na data atual. 
          * Formato padrão da data: yyyy-mm-dd
          */
-        std::vector<Servico> extrairServicos(Data data);
+        std::vector<std::reference_wrapper<Servico>> extrairServicos(Data data);
         
 
         /**
@@ -82,13 +83,13 @@ class Funcionario {
          /**
          * @brief Retorna a agenda de serviços do funcionário. Todas as datas e serviços já agendados nessas datas.
          */
-        std::map<long, std::vector<Servico>> const &getServicos() const;
+        std::map<long, std::vector<std::reference_wrapper<Servico>>> const &getServicos() const;
 
          /**
          * @brief Seta a agenda de serviços do funcionário com base em uma agenda já existente
          * @param servicos Agenda de serviços que será copiada
          */
-        void setServicos(std::map<long, std::vector<Servico>> &servicos);        
+        void setServicos(std::map<long, std::vector<std::reference_wrapper<Servico>>> &servicos);        
 
 
         /**
@@ -104,7 +105,7 @@ class Funcionario {
          * @brief Imprime uma lista de serviços 
          * @param servicos Lista de sevicos que será impressa
          */
-        static void printServicos(std::vector<Servico> servicos);
+        static void printServicos(std::vector<std::reference_wrapper<Servico>> servicos);
 
 
         /**

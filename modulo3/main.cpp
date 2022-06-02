@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <functional>
 #include "Gerencia.h"
 #include "PessoaFisica.h"
 #include "PessoaJuridica.h"
@@ -162,12 +163,12 @@ int main() {
 
 
     std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[0].getNome() << std::endl;
-    std::vector<Servico> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);
+    std::vector<std::reference_wrapper<Servico>> servicos_func1 = funcionarios[0].extrairServicos(data_hoje);
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func1);
 
     std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[1].getNome() << std::endl;
-    std::vector<Servico> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);
+    std::vector<std::reference_wrapper<Servico>> servicos_func2 = funcionarios[1].extrairServicos(data_hoje);
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func2);
 
@@ -204,7 +205,7 @@ int main() {
     UC uc;
     for (auto& cliente: fin.getClientes()) {
         for (auto& ucAux: cliente.getUCs()) {
-            if (ucAux == u1) {
+            if (u1 == ucAux) {
                 uc = ucAux;
             }
         }
