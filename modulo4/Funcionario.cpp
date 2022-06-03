@@ -34,11 +34,11 @@ int Funcionario::getIDFuncionario() const{
     return this->idFuncionario;
 }
 
-std::map<long, std::vector<Servico>> const &Funcionario::getServicos() const {
+std::map<long, std::vector<std::reference_wrapper<Servico>>> const &Funcionario::getServicos() const {
     return this->servicos;
 }
 
-void Funcionario::setServicos(std::map<long, std::vector<Servico>> &servicos) {
+void Funcionario::setServicos(std::map<long, std::vector<std::reference_wrapper<Servico>>> &servicos) {
     this->servicos = servicos;
 }
 
@@ -46,10 +46,10 @@ void Funcionario::adicionarServico(Servico &servico, Data data, int prioridade_s
     data.zerarHora();
     long key = data.getTicks();
     
-    if (!(this->servicos.count(key))){  
-            std::vector<Servico> _servicos;            
-            this->servicos.insert({key, _servicos});
-        }
+    if (!(this->servicos.count(key))){
+        std::vector<std::reference_wrapper<Servico>> _servicos;
+        this->servicos.insert({key, _servicos});
+    }
     
     if (this->servicos.at(key).size() >= Funcionario::maxServicos){
         std::cout << "Operacao nao realizada. Quantidade maxima de servicos ja cadastrada para a data: " + data.getData() + ".\n";
@@ -72,12 +72,11 @@ void Funcionario::adicionarServico(Servico &servico, Data data, int prioridade_s
     this->servicos.at(key).insert(this->servicos.at(key).begin() + prioridade_servico, servico);
 }
 
-
-std::vector<Servico> Funcionario::extrairServicos(Data data){
+std::vector<std::reference_wrapper<Servico>> Funcionario::extrairServicos(Data data){
     data.zerarHora();
     long key = data.getTicks();
-    if (!(this->servicos.count(key))){  
-        return std::vector<Servico> ();
+    if (!(this->servicos.count(key))){
+        return std::vector<std::reference_wrapper<Servico>> ();
     }    
         
     return this->servicos.at(key);
@@ -92,8 +91,8 @@ void Funcionario::executarServicos(Data data) {
     }
 
     for (auto& ser: this->servicos.at(key)){
-        ser.setInicio(time(0));
-        ser.executar();
+        ser.get().setInicio(time(0));
+        ser.get().executar();
     }
 }
 
@@ -109,20 +108,20 @@ int Funcionario::getQtdServicos(Data data_agenda) const{
     }
 }
 
-void Funcionario::printServicos(std::vector<Servico> servicos){    
-    for (Servico ser: servicos){
-            std::cout << "\t\t" << "ID do servico: " << ser.getIDServico() << "; Data de inicio: " << ser.getInicio().getData() << "; Data de fim: " << ser.getFim().getData() << ".\n";
-        }
+void Funcionario::printServicos(std::vector<std::reference_wrapper<Servico>> servicos){
+    for (auto& ser: servicos){
+        std::cout << "\t\t" << "ID do servico: " << ser.get().getIDServico() << "; Data de inicio: " << ser.get().getInicio().getData() << "; Data de fim: " << ser.get().getFim().getData() << ".\n";
+    }
     std::cout << "\n";
 }
 
 void Funcionario::printAgendaServicos(){
-    std::map<long, std::vector<Servico>>::iterator it;
+    std::map<long, std::vector<std::reference_wrapper<Servico>>>::iterator it;
     std::cout << "\nAgenda do funcionario: " << this->getNome() << "\n";
     for (it = this->servicos.begin(); it != this->servicos.end(); it++){
         Data temp(it->first);
         std::cout << "\tServicos agendados na data: " << temp.getData() << "\n";
-        std::vector<Servico> serv = it->second;
+        std::vector<std::reference_wrapper<Servico>> serv = it->second;
         Funcionario::printServicos(serv);
     }
     std::cout << "\n";
