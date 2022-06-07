@@ -5,12 +5,15 @@ int Servico::next_id_servico = 0;
 Servico::Servico() : id_servico(next_id_servico++), inicio(Data(0)), fim(Data(0)){
 
 }
-
-Servico::Servico(Data inicio, const UC &uc) : inicio(inicio), uc(uc), id_servico(next_id_servico++) , fim(Data(0)){
+Servico::Servico(TipoServico tipoServico) : tipoServico(tipoServico), id_servico(next_id_servico++), inicio(Data(0)), fim(Data(0)){
 
 }
 
-Servico::Servico(Data inicio, Data fim, const UC &uc) : inicio(inicio), fim(fim), uc(uc), id_servico(next_id_servico++) {
+Servico::Servico(TipoServico tipoServico, Data inicio, const UC &uc) : tipoServico(tipoServico), inicio(inicio), uc(uc), id_servico(next_id_servico++) , fim(Data(0)){
+
+}
+
+Servico::Servico(TipoServico tipoServico, Data inicio, Data fim, const UC &uc) : tipoServico(tipoServico), inicio(inicio), fim(fim), uc(uc), id_servico(next_id_servico++) {
 
 }
 
@@ -42,4 +45,8 @@ void Servico::executar() {
 
 int Servico::getIDServico(){
     return this->id_servico;
+}
+
+TipoServico Servico::getTipoServico() const {
+    return tipoServico;
 }

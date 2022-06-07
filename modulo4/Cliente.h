@@ -11,11 +11,11 @@
 #include "UC.h"
 #include "Data.h"
 #include "Endereco.h"
+#include "Usuario.h"
 
-class Cliente {
+class Cliente: public Usuario {
     static int nextIdCliente;
     int idCliente;
-    std::string nome;
     std::string telefoneContato;
     std::vector<UC> UCs;
     Endereco endereco;

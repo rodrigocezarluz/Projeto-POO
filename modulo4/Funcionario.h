@@ -98,8 +98,11 @@ class Funcionario {
 
         void executarServicos(Data data);
 
-        virtual void verificarServicos();
-
+        /**
+         * @brief Verifica o tipo de servico e joga uma exceção se o tipo de serviço não for valido para o funcionario
+         * @param servico
+         */
+        virtual void verificarServico(Servico &servico);
 
         /**
          * @brief Imprime uma lista de serviços 

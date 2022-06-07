@@ -4,6 +4,7 @@
 
 #include "Leiturista.h"
 
-void Leiturista::verificarServicos() {
-    Funcionario::verificarServicos();
+void verificarServico(Servico& servico) {
+    if (servico.getTipoServico() != TipoServico::MEDICAO)
+        throw std::invalid_argument("O Funcionario nao esta apto para este tipo de servico.");
 }

@@ -1,8 +1,12 @@
 #include "Medicao.h"
 
-Medicao::Medicao() : Servico() {}
+Medicao::Medicao() : Servico(TipoServico::MEDICAO) {}
 
-Medicao::Medicao(const Data &inicio, const UC &uc) : Servico(inicio, uc) {}
+Medicao::Medicao(const Data &inicio, const UC &uc) : Servico(TipoServico::MEDICAO, inicio, uc) {}
+
+Medicao::Medicao(const Data &inicio, const Data &fim, const UC &uc) : Servico(TipoServico::MEDICAO,
+                                                                                                       inicio, fim,
+                                                                                                       uc) {}
 
 void Medicao::executar() {
     // Verificando última fatura da UC

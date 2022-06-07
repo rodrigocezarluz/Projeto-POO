@@ -43,6 +43,7 @@ void Funcionario::setServicos(std::map<long, std::vector<std::reference_wrapper<
 }
 
 void Funcionario::adicionarServico(Servico &servico, Data data, int prioridade_servico) {
+    verificarServico(servico);
     data.zerarHora();
     long key = data.getTicks();
     
@@ -147,7 +148,7 @@ std::ostream& operator << (std::ostream &out, const Funcionario &funcionario){
 
 }
 
-void Funcionario::verificarServicos() {
+void Funcionario::verificarServico(Servico &servico) {
 
 }
 

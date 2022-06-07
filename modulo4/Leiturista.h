@@ -10,7 +10,7 @@
 
 class Leiturista: public Funcionario {
 public:
-    void verificarServicos() override;
+    void verificarServico(Servico& servico) override;
 };
 
 

@@ -12,11 +12,13 @@ class Medicao : public Servico {
 
     Medicao(const Data &inicio, const UC &uc);
 
+    Medicao(const Data &inicio, const Data &fim, const UC &uc);
+
     /**
      * @brief Executa o serviço de medição de consumo. Toda vez que o serviço é executado é gerada uma nova fatura para a UC
      * na qual o serviço foi realizado.
      */
-        void executar() override;
+    void executar() override;
 };
 
 

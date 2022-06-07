@@ -11,10 +11,26 @@
 #include "Permissao.h"
 
 class Usuario {
-    static int next_id_servico;
+    static int next_id_usuario;
     int idUsuario;
     std::string nome;
-    std::vector<Permissao> permissoes;
+    std::vector<std::reference_wrapper<Permissao>> permissoes;
+public:
+    Usuario(const std::string &nome, const std::vector<std::reference_wrapper<Permissao>> &permissoes);
+
+    Usuario();
+
+    int getIdUsuario() const;
+
+    void setIdUsuario(int idUsuario);
+
+    const std::string &getNome() const;
+
+    void setNome(const std::string &nome);
+
+    const std::vector<std::reference_wrapper<Permissao>> &getPermissoes() const;
+
+    void setPermissoes(const std::vector<std::reference_wrapper<Permissao>> &permissoes);
 };
 
 
