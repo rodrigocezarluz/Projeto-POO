@@ -12,6 +12,7 @@ class Eletricista: public Funcionario {
     using Funcionario::Funcionario;
 public:
     void verificarServico(Servico &servico) override;
+    void adicionarServico(Servico &servico, Data data, int prioridade_servico) override;
 };
 
 

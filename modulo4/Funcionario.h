@@ -42,7 +42,7 @@ class Funcionario: public Usuario {
          * @param data Data na qual o serviço será executado, formato yyyy-mm-dd
          * @param prioridade_servico Prioridade de execução do serviço. Prioridade máxima para 0.
          */
-        void adicionarServico(Servico &servico, Data data, int prioridade_servico);        
+        virtual void adicionarServico(Servico &servico, Data data, int prioridade_servico);
         
         /**
          * @brief Extrai a lista de serviços que o funcionário deve executar na data atual. 
