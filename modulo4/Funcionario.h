@@ -6,12 +6,12 @@
 #include "Servico.h"
 #include "Data.h"
 #include <functional>
+#include "Usuario.h"
 
-class Funcionario {
+class Funcionario: public Usuario {
     static int nextIdFuncionario;
     static int maxServicos;
     int idFuncionario;
-    std::string nome;
     std::map<long, std::vector< std::reference_wrapper<Servico> > > servicos = {};
         
     public:
@@ -48,18 +48,7 @@ class Funcionario {
          * @brief Extrai a lista de serviços que o funcionário deve executar na data atual. 
          * Formato padrão da data: yyyy-mm-dd
          */
-        std::vector<std::reference_wrapper<Servico>> extrairServicos(Data data);
-
-        /**
-         * @brief Seta um nome para o funcionario
-         * @param nome Nome do funcionário
-         */
-        void setNome(const std::string &nome);
-
-        /**
-         * @brief Retorna o nome do funcionário
-         */
-        std::string getNome() const;        
+        std::vector<std::reference_wrapper<Servico>> extrairServicos(Data data);      
 
         /**
          * @brief Define a quantidade máxima de serviços que um funcionário pode executar em um dia

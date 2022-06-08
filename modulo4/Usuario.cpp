@@ -15,7 +15,7 @@ int Usuario::getIdUsuario() const {
 }
 
 void Usuario::setIdUsuario(int idUsuario) {
-    Usuario::idUsuario = idUsuario;
+    this->idUsuario = idUsuario;
 }
 
 const std::string &Usuario::getNome() const {
@@ -23,7 +23,7 @@ const std::string &Usuario::getNome() const {
 }
 
 void Usuario::setNome(const std::string &nome) {
-    Usuario::nome = nome;
+    this->nome = nome;
 }
 
 const std::vector<std::reference_wrapper<Permissao>> &Usuario::getPermissoes() const {
@@ -31,5 +31,5 @@ const std::vector<std::reference_wrapper<Permissao>> &Usuario::getPermissoes() c
 }
 
 void Usuario::setPermissoes(const std::vector<std::reference_wrapper<Permissao>> &permissoes) {
-    Usuario::permissoes = permissoes;
+    this->permissoes = permissoes;
 }

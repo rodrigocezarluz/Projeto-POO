@@ -9,6 +9,7 @@
 #include "Funcionario.h"
 
 class Leiturista: public Funcionario {
+    using Funcionario::Funcionario;
 public:
     void verificarServico(Servico& servico) override;
 };

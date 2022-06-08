@@ -34,10 +34,6 @@ public:
 
     void setIdCliente(const int &idCliente);
 
-    std::string getNome() const;
-
-    void setNome(const std::string &nome);
-
     std::string getTelefoneContato() const;
 
     void setTelefoneContato(const std::string &telefoneContato);

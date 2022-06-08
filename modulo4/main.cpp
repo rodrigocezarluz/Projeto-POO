@@ -19,6 +19,8 @@
 #include "ReligacaoPagamento.h"
 #include "TrocaMedidor.h"
 #include "LocalizacaoGeografica.h"
+#include "Leiturista.h"
+#include "Eletricista.h"
 
 int main() {
     // INICIANDO TESTES DO MÓDULO 4
@@ -33,19 +35,15 @@ int main() {
 
     // instanciando Funcionarios
     Funcionario::setMaxServicos(8);
-    Funcionario leiturista1("Joao Vitor");
-    Funcionario eletricista1("Juliana Maria");
-    Funcionario funcionario1("Jose Silva");
-    Funcionario funcionario2("Luiza Maria");
+    Leiturista leiturista1("Joao Vitor");
+    Eletricista eletricista1("Juliana Maria");
+
     std::cout << "Leiturista criado: " << "\n" << leiturista1 << std::endl;
     std::cout << "Eletricista criado: " << "\n" << eletricista1 << std::endl;    
-    std::cout << "Funcionario criado: " << "\n" << funcionario1 << std::endl;
-    std::cout << "Funcionario criado: " << "\n" << funcionario2 << std::endl;
+
 
     fin.cadastrarFuncionario(leiturista1);
     fin.cadastrarFuncionario(eletricista1);
-    fin.cadastrarFuncionario(funcionario1);
-    fin.cadastrarFuncionario(funcionario2);
 
     fin.cadastrarCliente(cl1);
     fin.cadastrarCliente(cl2);
@@ -74,25 +72,19 @@ int main() {
     fin.cadastrarServico(0, servico11, data_hoje, 2);
     fin.cadastrarServico(1, servico12, data_amanha, 1);
 
-    leiturista1.adicionarServico(servico1, data_hoje, 2);
-    leiturista1.adicionarServico(servico3, data_hoje, 2);
-    leiturista1.adicionarServico(servico5, data_hoje, 2);
-    leiturista1.adicionarServico(servico7, data_hoje, 2);
-    leiturista1.adicionarServico(servico9, data_hoje, 2);
-    leiturista1.adicionarServico(servico11, data_hoje, 2);
-
-    eletricista1.adicionarServico(servico2, data_amanha, 1);
-    eletricista1.adicionarServico(servico4, data_amanha, 1);
-    eletricista1.adicionarServico(servico6, data_amanha, 1);
-    eletricista1.adicionarServico(servico8, data_amanha, 1);
-    eletricista1.adicionarServico(servico10, data_amanha, 1);
-    eletricista1.adicionarServico(servico12, data_amanha, 1);
+    std::vector<Funcionario> funcionarios(fin.getFuncionarios());
+    funcionarios[0].printAgendaServicos();
+    funcionarios[1].printAgendaServicos();
 
     // executando os servicos
     std::cout << "Executando servicos do dia: " << data_hoje.getData() << std::endl;
     fin.executarServicos(0, data_hoje);
     std::cout << "Executando servicos do dia: " << data_amanha.getData() << std::endl;
     fin.executarServicos(1, data_amanha);
+
+    std::vector<Funcionario> funcionarios2(fin.getFuncionarios());
+    funcionarios2[0].printAgendaServicos();
+    funcionarios2[1].printAgendaServicos();
 
     return 0;
 }

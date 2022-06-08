@@ -8,9 +8,11 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 #include "Permissao.h"
 
 class Usuario {
+private:
     static int next_id_usuario;
     int idUsuario;
     std::string nome;

@@ -6,20 +6,14 @@
 int Funcionario::maxServicos = 8;
 int Funcionario::nextIdFuncionario = 0;
 
-Funcionario::Funcionario() : idFuncionario(nextIdFuncionario++) {}
+Funcionario::Funcionario() : Usuario(), idFuncionario(nextIdFuncionario++) {}
 
-Funcionario::Funcionario(const std::string &nome) : idFuncionario(nextIdFuncionario++), nome(nome) {}
-
-Funcionario::Funcionario(const Funcionario& funcionario) : idFuncionario(funcionario.idFuncionario), 
-                                                           nome(funcionario.nome),
-                                                           servicos(funcionario.servicos) {}
-
-void Funcionario::setNome(const std::string &nome){
-    this->nome = nome;
+Funcionario::Funcionario(const std::string &nome) : Usuario(), idFuncionario(nextIdFuncionario++) {
+    this->setNome(nome);
 }
 
-std::string Funcionario::getNome() const{
-    return this->nome;
+Funcionario::Funcionario(const Funcionario& funcionario) : Usuario(), idFuncionario(funcionario.idFuncionario), servicos(funcionario.servicos) {
+    this->setNome(funcionario.getNome());
 }
 
 void Funcionario::setMaxServicos(const int &ms){
@@ -134,14 +128,14 @@ bool Funcionario::operator==(const Funcionario& other) {
 
 Funcionario& Funcionario::operator=(const Funcionario& other) {
     this->idFuncionario = other.getIDFuncionario();
-    this->nome = other.getNome();
+    this->setNome(other.getNome());
     this->servicos = other.getServicos();
 
     return *this;
 }
 
 std::ostream& operator << (std::ostream &out, const Funcionario &funcionario){
-  out << "Nome do Funcionario: " << funcionario.nome << ".\n" 
+  out << "Nome do Funcionario: " << funcionario.getNome() << ".\n" 
         << "ID do funcionario: " << funcionario.idFuncionario << ".\n"
         << "Quantidade maxima de servicos diarios: " << Funcionario::maxServicos << ".\n";  
   return out;

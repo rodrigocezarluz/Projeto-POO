@@ -6,24 +6,27 @@
 
 int Cliente::nextIdCliente = 0;
 
-Cliente::Cliente() : idCliente(nextIdCliente++) {
+Cliente::Cliente() : Usuario(), idCliente(nextIdCliente++) {
     Endereco endereco1;
     this->endereco = endereco1;
 }
 
-Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : idCliente(nextIdCliente++), nome(nome), UCs(uCs) {
+Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : Usuario(), idCliente(nextIdCliente++), UCs(uCs) {
     Endereco endereco1;
     this->endereco = endereco1;
+    this->setNome(nome);
 }
 
-Cliente::Cliente(const Cliente& c) : idCliente(c.idCliente), nome(c.nome), UCs(c.UCs) {
+Cliente::Cliente(const Cliente& c) : Usuario(), idCliente(c.idCliente), UCs(c.UCs) {
     Endereco endereco1;
     this->endereco = endereco1;
+    this->setNome(c.getNome());
 }
 
-Cliente::Cliente(const string &nome, const string &telefoneContato, const vector<UC> &uCs,
-                 const Endereco &endereco) : idCliente(nextIdCliente++), nome(nome), telefoneContato(telefoneContato),
-                                             UCs(uCs), endereco(endereco) {}
+Cliente::Cliente(const string &nome, const string &telefoneContato, const vector<UC> &uCs, const Endereco &endereco) : Usuario(), 
+                                            idCliente(nextIdCliente++), telefoneContato(telefoneContato), UCs(uCs), endereco(endereco) {
+    this->setNome(nome);
+}
 
 int Cliente::getIdCliente() const {
     return idCliente;
@@ -31,14 +34,6 @@ int Cliente::getIdCliente() const {
 
 void Cliente::setIdCliente(const int &idCliente) {
     this->idCliente = idCliente;
-}
-
-std::string Cliente::getNome() const {
-    return nome;
-}
-
-void Cliente::setNome(const std::string &nome) {
-    this->nome = nome;
 }
 
 std::string Cliente::getTelefoneContato() const {
@@ -135,7 +130,7 @@ bool Cliente::operator==(const Cliente& other) {
 
 Cliente& Cliente::operator=(const Cliente& other) {
     this->idCliente = other.getIdCliente();
-    this->nome = other.getNome();
+    this->setNome(other.getNome());
     this->UCs = other.getUCs();
 
     return *this;
