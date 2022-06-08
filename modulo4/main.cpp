@@ -72,9 +72,9 @@ int main() {
     fin.cadastrarServico(0, servico11, data_hoje, 2);
     fin.cadastrarServico(1, servico12, data_amanha, 1);
 
-    std::vector<Funcionario> funcionarios(fin.getFuncionarios());
-    funcionarios[0].printAgendaServicos();
-    funcionarios[1].printAgendaServicos();
+    std::vector<std::reference_wrapper<Funcionario>> funcionarios(std::ref(fin.getFuncionarios()));
+    funcionarios[0].get().printAgendaServicos();
+    funcionarios[1].get().printAgendaServicos();
 
     // executando os servicos
     std::cout << "Executando servicos do dia: " << data_hoje.getData() << std::endl;
@@ -82,9 +82,9 @@ int main() {
     std::cout << "Executando servicos do dia: " << data_amanha.getData() << std::endl;
     fin.executarServicos(1, data_amanha);
 
-    std::vector<Funcionario> funcionarios2(fin.getFuncionarios());
-    funcionarios2[0].printAgendaServicos();
-    funcionarios2[1].printAgendaServicos();
+    std::vector<std::reference_wrapper<Funcionario>> funcionarios2(std::ref(fin.getFuncionarios()));
+    funcionarios2[0].get().printAgendaServicos();
+    funcionarios2[1].get().printAgendaServicos();
 
     return 0;
 }

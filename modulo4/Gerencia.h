@@ -17,7 +17,7 @@ class Gerencia {
 private:
     std::map<int, std::vector<Fatura>> relatorioInandimplentes = {};
     std::vector<Cliente> clientes;
-    std::vector<Funcionario> funcionarios;
+    std::vector<std::reference_wrapper<Funcionario>> funcionarios;
 
 public:
     Gerencia();
@@ -32,9 +32,9 @@ public:
 
     void setClientes(const std::vector<Cliente> &clientes);
 
-    const std::vector<Funcionario> &getFuncionarios() const;
+    const vector<std::reference_wrapper<Funcionario>> &getFuncionarios() const;
 
-    void setFuncionarios(const std::vector<Funcionario> &funcionarios);
+    void setFuncionarios(const vector<std::reference_wrapper<Funcionario>> &funcionarios);
 
     void cadastrarCliente(Cliente &cliente);
 

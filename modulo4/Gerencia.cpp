@@ -27,12 +27,12 @@ void Gerencia::setClientes(const std::vector<Cliente> &clientes) {
     this->clientes = clientes;
 }
 
-const std::vector<Funcionario> &Gerencia::getFuncionarios() const {
+const vector<std::reference_wrapper<Funcionario>> &Gerencia::getFuncionarios() const {
     return funcionarios;
 }
 
-void Gerencia::setFuncionarios(const std::vector<Funcionario> &funcionarios) {
-    this->funcionarios = funcionarios;
+void Gerencia::setFuncionarios(const vector<std::reference_wrapper<Funcionario>> &funcionarios) {
+    Gerencia::funcionarios = funcionarios;
 }
 
 void Gerencia::cadastrarCliente(Cliente &cliente) {
@@ -69,8 +69,8 @@ void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) 
 
 void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const Data &data, int prioridade_servico) {
     for (auto &funcionario : this->funcionarios) {
-        if (funcionario.getIDFuncionario() == idFuncionario){
-            funcionario.adicionarServico(servico, data, prioridade_servico);
+        if (funcionario.get().getIDFuncionario() == idFuncionario){
+            funcionario.get().adicionarServico(servico, data, prioridade_servico);
             return;
         }
     }
@@ -80,8 +80,8 @@ void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, cons
 
 void Gerencia::executarServicos(const int &idFuncionario, const Data &data) {
     for (auto &funcionario : this->funcionarios) {
-        if (funcionario.getIDFuncionario() == idFuncionario) {
-            funcionario.executarServicos(data);
+        if (funcionario.get().getIDFuncionario() == idFuncionario) {
+            funcionario.get().executarServicos(data);
             return;
         }
     }
