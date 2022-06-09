@@ -39,7 +39,7 @@ int main() {
     Eletricista eletricista1("Juliana Maria");
 
     std::cout << "Leiturista criado: " << "\n" << leiturista1 << std::endl;
-    std::cout << "Eletricista criado: " << "\n" << eletricista1 << std::endl;    
+    std::cout << "Eletricista criado: " << "\n" << eletricista1 << std::endl;
 
 
     fin.cadastrarFuncionario(leiturista1);
@@ -59,17 +59,17 @@ int main() {
     TrocaMedidor servico11, servico12;
 
     // inserindo servicos na agenda do eletricista e do leiturista
-    fin.cadastrarServico(0, servico1, data_hoje, 2);
+    fin.cadastrarServico(1, servico1, data_hoje, 2);
     fin.cadastrarServico(1, servico2, data_amanha, 1);
-    fin.cadastrarServico(0, servico3, data_hoje, 2);
+    fin.cadastrarServico(1, servico3, data_hoje, 2);
     fin.cadastrarServico(1, servico4, data_amanha, 1);
-    fin.cadastrarServico(0, servico5, data_hoje, 2);
+    fin.cadastrarServico(1, servico5, data_hoje, 2);
     fin.cadastrarServico(1, servico6, data_amanha, 1);
     fin.cadastrarServico(0, servico7, data_hoje, 2);
-    fin.cadastrarServico(1, servico8, data_amanha, 1);
-    fin.cadastrarServico(0, servico9, data_hoje, 2);
+    fin.cadastrarServico(0, servico8, data_amanha, 1);
+    fin.cadastrarServico(1, servico9, data_hoje, 2);
     fin.cadastrarServico(1, servico10, data_amanha, 1);
-    fin.cadastrarServico(0, servico11, data_hoje, 2);
+    fin.cadastrarServico(1, servico11, data_hoje, 2);
     fin.cadastrarServico(1, servico12, data_amanha, 1);
 
     std::vector<std::reference_wrapper<Funcionario>> funcionarios(std::ref(fin.getFuncionarios()));
