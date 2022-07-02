@@ -340,3 +340,8 @@ void Data::zerarHora() {
     dateToTicks();
     validaData();
 }
+
+string Data::toString() const {
+    return to_string(this->dia) + "/" + to_string(this->mes) + "/" + to_string(this->ano) +
+    " " + to_string(this->hora) + ":" + to_string(this->minuto) + ":" + to_string(this->segundo);
+}

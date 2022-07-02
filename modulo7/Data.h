@@ -64,6 +64,7 @@ public:
     string getData();       //Retorna a data no formato de string
     int diffData(Data);    // Retorna a diferença entre duas datas em dias
     void zerarHora();      // zera os valores de hora, minuto e segundo
+    string toString() const;     //converte Data para string
 };
 
 #endif // DATA_H_INCLUDED
