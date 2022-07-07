@@ -19,6 +19,9 @@ private:
     double consumoEnergiaTotal;
     double consumoEnergiaMedido;
     Endereco endereco;
+    int num_instalacao;
+    std::string nivel_tensao;  // niveis de tensao do Brasil segundo ANEEL: 115V, 127V, 220V, 230V, 240V, 254V
+    double tensao_atendimento;
 
 public:
     UC();
@@ -26,6 +29,9 @@ public:
     UC(const std::vector<Fatura> &faturas);
 
     UC(const UC& uc);
+
+    UC(const vector<Fatura> &faturas, const double &consumoEnergiaTotal, const double &consumoEnergiaMedido,
+       const Endereco &endereco, const int &num_instalacao, const std::string &nivel_tensao, const float &tensao_atendimento);
 
     /**
      * @brief Retorna o ID da UC.
@@ -38,6 +44,42 @@ public:
      * @brief Define o ID da UC.
      */
     void setIdUc(int idUc);
+
+    /**
+     * @brief Retorna o número da instalação da UC.
+     *
+     * @return int num_instalacao da UC.
+     */
+    int getNumInstalacao() const;
+
+     /**
+     * @brief Define o número da instalação da UC.
+     */
+    void setNumInstalacao(int num_instalacao);
+
+    /**
+     * @brief Retorna o nível de tensão da UC.
+     *
+     * @return std::string nivel_tensao da UC.
+     */
+    std::string getNivelTensao() const;
+
+     /**
+     * @brief Define o nível tensão  da UC.
+     */
+    void setNivelTensao(std::string nivel_tensao);
+
+    /**
+     * @brief Retorna tensão de antendimento em volts da UC.
+     *
+     * @return float tensao_atendimento da UC.
+     */
+    double getTensaoAtendimento() const;
+
+     /**
+     * @brief Define a tensão de atendimento em volts da UC.
+     */
+    void setTensaoAtendimento(double tensao_atendimento);
 
     /**
      * @brief Retorna a quantidade de itens do produto.
