@@ -4,6 +4,7 @@
 
 #include "UC.h"
 #include <cstdlib>
+#include "Erro.h"
 
 
 int UC::nextIdUC = 0;
@@ -12,7 +13,17 @@ UC::UC() : idUC(nextIdUC++), consumoEnergiaTotal(0), consumoEnergiaMedido(0) {}
 
 UC::UC(const std::vector<Fatura> &faturas) : idUC(nextIdUC++), faturas(faturas), consumoEnergiaTotal(0), consumoEnergiaMedido(0) {}
 
-UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas), consumoEnergiaTotal(uc.consumoEnergiaTotal), consumoEnergiaMedido(uc.consumoEnergiaMedido) {}
+UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas), consumoEnergiaTotal(uc.consumoEnergiaTotal), 
+                      consumoEnergiaMedido(uc.consumoEnergiaMedido), endereco(uc.endereco), num_instalacao(uc.num_instalacao), 
+                      nivel_tensao(uc.nivel_tensao), tensao_atendimento(uc.tensao_atendimento) {}
+
+UC::UC(const vector<Fatura> &faturas, const double &consumoEnergiaTotal, const double &consumoEnergiaMedido,
+       const Endereco &endereco, const int &num_instalacao, const std::string &nivel_tensao, const float &tensao_atendimento):
+       faturas(faturas), consumoEnergiaTotal(consumoEnergiaTotal), consumoEnergiaMedido(consumoEnergiaMedido),
+       endereco(endereco), num_instalacao(num_instalacao){
+        this->setNivelTensao(nivel_tensao);
+        this->setTensaoAtendimento(tensao_atendimento);
+       }
 
 int UC::getIdUc() const {
     return idUC;
@@ -37,6 +48,39 @@ double UC::getConsumoEnergiaMedido() const {
 
 void UC::setConsumoEnergiaMedido(double consumoMedido) {
     this->consumoEnergiaMedido = consumoMedido;
+    return;
+}
+
+std::string UC::getNivelTensao() const {
+    return this->nivel_tensao;
+}
+
+void UC::setNivelTensao(std::string nivel_tensao){
+    if(nivel_tensao == "BT" || nivel_tensao == "MT" || nivel_tensao == "AT"){
+        this->nivel_tensao = nivel_tensao;
+        return;
+    }
+    throw Erro("Nível de tensão informado inválido.");
+}
+
+double UC::getTensaoAtendimento() const {
+    return this->tensao_atendimento;
+}
+
+void UC::setTensaoAtendimento(double tensao_atendimento) {
+    if(tensao_atendimento < 1000  && this->getNivelTensao() != "BT"){
+        throw Erro("Tensão de atendimento deve ser menor que 1.000 volts.");
+    }
+    else if (tensao_atendimento > 100 && tensao_atendimento <= 36000 && this->getNivelTensao() != "MT"){
+        throw Erro("Tensão de atendimento deve ser maior que 1.000 volts e menor ou igual a 36.000 volts.");
+    }
+    else if (tensao_atendimento > 36000 && this->getNivelTensao() != "AT"){
+        throw Erro("Tensão de atendimento deve ser maior que 36.000 volts.");
+        
+    }
+    else{
+        this->tensao_atendimento = tensao_atendimento;
+    }
     return;
 }
 
