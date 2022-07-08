@@ -17,8 +17,8 @@ UC::UC(const UC& uc) : idUC(uc.idUC), faturas(uc.faturas), consumoEnergiaTotal(u
                       consumoEnergiaMedido(uc.consumoEnergiaMedido), endereco(uc.endereco), num_instalacao(uc.num_instalacao), 
                       nivel_tensao(uc.nivel_tensao), tensao_atendimento(uc.tensao_atendimento) {}
 
-UC::UC(const vector<Fatura> &faturas, const double &consumoEnergiaTotal, const double &consumoEnergiaMedido,
-       const Endereco &endereco, const int &num_instalacao, const std::string &nivel_tensao, const float &tensao_atendimento):
+UC::UC(const vector<Fatura> &faturas, const double &consumoEnergiaTotal, const double &consumoEnergiaMedido, const Endereco &endereco, 
+       const int &num_instalacao, const std::string &nivel_tensao, const float &tensao_atendimento):  idUC(nextIdUC++),
        faturas(faturas), consumoEnergiaTotal(consumoEnergiaTotal), consumoEnergiaMedido(consumoEnergiaMedido),
        endereco(endereco), num_instalacao(num_instalacao){
         this->setNivelTensao(nivel_tensao);
@@ -68,15 +68,17 @@ double UC::getTensaoAtendimento() const {
 }
 
 void UC::setTensaoAtendimento(double tensao_atendimento) {
-    if(tensao_atendimento < 1000  && this->getNivelTensao() != "BT"){
+    if(this->getNivelTensao().empty()){
+        throw Erro("Nivel de tensao deve ser especificado antes da Tensao de Atendimento.");
+    }
+    else if(tensao_atendimento < 1000  && this->getNivelTensao() != "BT"){
         throw Erro("Tensão de atendimento deve ser menor que 1.000 volts.");
     }
     else if (tensao_atendimento > 100 && tensao_atendimento <= 36000 && this->getNivelTensao() != "MT"){
         throw Erro("Tensão de atendimento deve ser maior que 1.000 volts e menor ou igual a 36.000 volts.");
     }
     else if (tensao_atendimento > 36000 && this->getNivelTensao() != "AT"){
-        throw Erro("Tensão de atendimento deve ser maior que 36.000 volts.");
-        
+        throw Erro("Tensão de atendimento deve ser maior que 36.000 volts.");   
     }
     else{
         this->tensao_atendimento = tensao_atendimento;

@@ -20,7 +20,7 @@ private:
     double consumoEnergiaMedido;
     Endereco endereco;
     int num_instalacao;
-    std::string nivel_tensao;  // niveis de tensao do Brasil segundo ANEEL: 115V, 127V, 220V, 230V, 240V, 254V
+    std::string nivel_tensao; 
     double tensao_atendimento;
 
 public:
@@ -58,26 +58,26 @@ public:
     void setNumInstalacao(int num_instalacao);
 
     /**
-     * @brief Retorna o nível de tensão da UC.
+     * @brief Retorna o nível de tensão, em volts, da UC.
      *
-     * @return std::string nivel_tensao da UC.
+     * @return std::string nivel_tensao, em volts, da UC.
      */
     std::string getNivelTensao() const;
 
      /**
-     * @brief Define o nível tensão  da UC.
+     * @brief Define o nível tensão, em volts, da UC. Valores permitidos: BT, MT, AT.
      */
     void setNivelTensao(std::string nivel_tensao);
 
     /**
-     * @brief Retorna tensão de antendimento em volts da UC.
+     * @brief Retorna tensão de antendimento, em volts, da UC.
      *
-     * @return float tensao_atendimento da UC.
+     * @return float tensao_atendimento, em volts, da UC.
      */
     double getTensaoAtendimento() const;
 
      /**
-     * @brief Define a tensão de atendimento em volts da UC.
+     * @brief Define a tensão de atendimento, em volts, da UC.
      */
     void setTensaoAtendimento(double tensao_atendimento);
 

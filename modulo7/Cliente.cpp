@@ -16,20 +16,18 @@ Cliente::Cliente() : Usuario(), idCliente(nextIdCliente++) {
     this->endereco = endereco1;
 }
 
-Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : Usuario(), idCliente(nextIdCliente++), UCs(uCs)
-                                                                        , nome(nome) {
+Cliente::Cliente(const std::string &nome, const std::vector<UC> &uCs) : Usuario(), idCliente(nextIdCliente++), UCs(uCs) {
     Endereco endereco1;
     this->endereco = endereco1;
-    //this->setNome(nome);
+    this->setNome(nome);
 }
 
 Cliente::Cliente(const Cliente& c) : Usuario(), idCliente(c.idCliente), telefoneContato(c.telefoneContato), 
-                                    UCs(c.UCs), endereco(c.endereco), nome(c.nome), num_documento(c.num_documento), email(c.email) {
-    /*
+                                    UCs(c.UCs), endereco(c.endereco), email(c.email) {
+   
     Endereco endereco1;
     this->endereco = endereco1;
     this->setNome(c.getNome());
-    */
 }
 
 
@@ -40,11 +38,10 @@ Cliente::Cliente(const string &nome, const string &telefoneContato, const vector
 
 Cliente::Cliente(const string &nome, const string &telefoneContato, 
                  const vector<UC> &uCs, const Endereco &endereco,
-                 const std::string &num_documento, 
-                 const std::string &email) : Usuario(), nome(nome) , idCliente(nextIdCliente++), telefoneContato(telefoneContato), 
-                                             UCs(uCs), endereco(endereco), num_documento(num_documento), email(email)
+                 const std::string &email) : Usuario() , idCliente(nextIdCliente++), telefoneContato(telefoneContato), 
+                                             UCs(uCs), endereco(endereco), email(email)
                                              {
-    //this->setNome(nome);
+    this->setNome(nome);
 }
 
 int Cliente::getIdCliente() const {
@@ -69,23 +66,6 @@ const Endereco &Cliente::getEndereco() const {
 
 void Cliente::setEndereco(const Endereco &endereco) {
     Cliente::endereco = endereco;
-}
-
-std::string Cliente::getNome() const {
-    return this->nome;
-}
-
-void Cliente::setNome(const std::string &nome) {
-    this->nome = nome;
-}
-
-std::string Cliente::getNumDocumento() const {
-    return this->num_documento;
-}
-
-void Cliente::setNumeroDocumento(const std::string &num_documento) {
-    this->num_documento = num_documento;
-
 }
 
 std::string Cliente::getEmail() const {

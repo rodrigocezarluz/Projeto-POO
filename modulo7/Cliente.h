@@ -19,9 +19,8 @@ class Cliente: public Usuario {
     std::string telefoneContato;
     std::vector<UC> UCs;
     Endereco endereco;
-    std::string nome;
-    std::string num_documento;
     std::string email;
+
 
 public:
     Cliente();
@@ -34,7 +33,7 @@ public:
             const Endereco &endereco);
 
     Cliente(const std::string &nome, const std::string &telefoneContato, const vector<UC> &uCs,
-            const Endereco &endereco, const std::string &num_documento, const std::string &email);
+            const Endereco &endereco, const std::string &email);
 
     int getIdCliente() const;
 
@@ -47,14 +46,6 @@ public:
     const Endereco &getEndereco() const;
 
     void setEndereco(const Endereco &endereco);
-
-    std::string getNome() const;
-
-    void setNome(const std::string &nome);
-
-    std::string getNumDocumento() const;
-
-    void setNumeroDocumento(const std::string  &num_documento);
 
     std::string getEmail() const;
 
