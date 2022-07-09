@@ -56,19 +56,6 @@ int main() {
     fin.cadastrarUC(1, u3);
     fin.cadastrarUC(2, u4);
 
-    std::cout << "Cliente1 ID: " << cl1.getIdCliente() << std::endl;
-    std::cout << "Cliente2 ID: " << cl2.getIdCliente() << std::endl;
-    std::cout << "Cliente3 ID: " << cl3.getIdCliente() << std::endl;
-
-    std::cout << " " << std::endl;
-
-    std::cout << "UC1 ID: " << u1.getIdUc() << std::endl;
-    std::cout << "UC2 ID: " << u2.getIdUc() << std::endl;
-    std::cout << "UC3 ID: " << u3.getIdUc() << std::endl;
-    std::cout << "UC4 ID: " << u4.getIdUc() << std::endl;
-
-    std::cout << " " << std::endl;
-
     //Registro de um cliente que viola a regra de validação do CPF
     //Registro de um cliente que viola a regra de validação do CNPJ
     cl1.setCpf("02062008627");
@@ -111,49 +98,45 @@ int main() {
     Funcionario::setMaxServicos(8);
     Funcionario funcionario1("Jose Silva");
     Funcionario funcionario2("Luiza Maria");
-    std::cout << "Funcionario criado: " << "\n" << funcionario1 << std::endl;
-    std::cout << "Funcionario criado: " << "\n" << funcionario2 << std::endl;
+    Leiturista leiturista1("Joao Vitor");
+    Eletricista eletricista1("Juliana Maria"); 
 
     fin.cadastrarFuncionario(funcionario1);
     fin.cadastrarFuncionario(funcionario2);
+    fin.cadastrarFuncionario(leiturista1);
+    fin.cadastrarFuncionario(eletricista1);
 
-    DesligEncerramento servico1, servico2, servico3;
-    DesligInadimplencia servico4, servico5, servico6;
-    LigacaoNova servico7, servico8, servico9;
-    Medicao servico10, servico11, servico12;
-    ReligacaoPagamento servico13, servico14;
-    TrocaMedidor servico15, servico16;
+    DesligEncerramento servico1, servico2;
+    DesligInadimplencia servico3, servico4;
+    LigacaoNova servico5, servico6;
+    Medicao servico7, servico8;
+    ReligacaoPagamento servico9, servico10;
+    TrocaMedidor servico11, servico12;
 
     std::cout << "Adicionando servicos na fila dos funcionarios..." << std::endl;
 
     fin.cadastrarServico(0, servico1, data_hoje, 1);
     fin.cadastrarServico(0, servico2, data_hoje, 2);
     fin.cadastrarServico(0, servico3, data_hoje, 3);
-    fin.cadastrarServico(0, servico6, data_hoje, 6);
-    fin.cadastrarServico(0, servico4, data_hoje, 4);
-    fin.cadastrarServico(0, servico5, data_hoje, 5);
-    fin.cadastrarServico(0, servico7, data_hoje, 7);
-    fin.cadastrarServico(0, servico8, data_hoje, 8);
-
-    fin.cadastrarServico(1, servico9, data_hoje, 1);
-
-    fin.cadastrarServico(0, servico10, data_amanha, 1);
-    fin.cadastrarServico(0, servico11, data_amanha, 2);
-    fin.cadastrarServico(0, servico12, data_amanha, 3);
-    fin.cadastrarServico(0, servico13, data_amanha, 4);
-    fin.cadastrarServico(0, servico14, data_amanha, 5);
-    fin.cadastrarServico(0, servico15, data_amanha, 6);
-    fin.cadastrarServico(0, servico16, data_amanha, 9);
+    fin.cadastrarServico(1, servico4, data_hoje, 6);
+    fin.cadastrarServico(1, servico5, data_hoje, 4);
+    fin.cadastrarServico(1, servico6, data_hoje, 5);
+    fin.cadastrarServico(2, servico7, data_hoje, 7);
+    fin.cadastrarServico(2, servico8, data_hoje, 8);
+    fin.cadastrarServico(3, servico9, data_hoje, 1);
+    fin.cadastrarServico(3, servico10, data_amanha, 1);
+    fin.cadastrarServico(3, servico11, data_amanha, 2);
+    fin.cadastrarServico(3, servico12, data_amanha, 3);
 
     //atribuição de um serviço para um funcionário que não pode executar aquele serviço
     try {
-        fin.cadastrarServico(1, servico1, data_hoje, 1);
+        fin.cadastrarServico(3, servico7, data_hoje, 1);
     } catch (Erro &e) {
         //std::cout << "Erro: " << e.out() << std::endl;
     }
 
     try {
-        fin.cadastrarServico(1, servico2, data_hoje, 2);
+        fin.cadastrarServico(2, servico9, data_hoje, 2);
     } catch (Erro &e) {
         //std::cout << "Erro: " << e.out() << std::endl;
     }
@@ -172,71 +155,28 @@ int main() {
     std::cout << "Lista de servicos extraidos:" << std::endl;
     Funcionario::printServicos(servicos_func2);
 
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[2].get().getNome() << std::endl;
+    std::vector<std::reference_wrapper<Servico>> servicos_func3 = funcionarios[2].get().extrairServicos(data_hoje);
+    std::cout << "Lista de servicos extraidos:" << std::endl;
+    Funcionario::printServicos(servicos_func3);
+
+    std::cout << "\nExtraindo demanda diaria (" << data_hoje.getData() << ") da fila do funcionario: " << funcionarios[3].get().getNome() << std::endl;
+    std::vector<std::reference_wrapper<Servico>> servicos_func4 = funcionarios[3].get().extrairServicos(data_hoje);
+    std::cout << "Lista de servicos extraidos:" << std::endl;
+    Funcionario::printServicos(servicos_func4);
+
     std::cout << "Executando servicos do dia: " << data_hoje.getData() << std::endl;
     fin.executarServicos(0, data_hoje);
     fin.executarServicos(1, data_hoje);
-
-    std::vector<std::reference_wrapper<Funcionario>> funcionarios2(fin.getFuncionarios());
-    funcionarios2[0].get().printAgendaServicos();
-    funcionarios2[1].get().printAgendaServicos();
+    fin.executarServicos(2, data_hoje);
+    fin.executarServicos(3, data_hoje);
 
     //Registro de 2 medições de um leiturista com cálculo de duas faturas, sendo uma delas em atraso
-    Leiturista leiturista1("Joao Vitor");
-    Eletricista eletricista1("Juliana Maria");
-
-    std::cout << "Leiturista criado: " << "\n" << leiturista1 << std::endl;
-    std::cout << "Eletricista criado: " << "\n" << eletricista1 << std::endl;    
-
-    fin.cadastrarFuncionario(leiturista1);
-    fin.cadastrarFuncionario(eletricista1);
-
-    PessoaFisica cl5;
-    PessoaJuridica cl6;
-
-    fin.cadastrarCliente(cl5);
-    fin.cadastrarCliente(cl6);
-
-    std::cout << "Cliente5 ID: " << cl5.getIdCliente() << std::endl;
-    std::cout << "Cliente6 ID: " << cl6.getIdCliente() << std::endl;
-
-    DesligEncerramento servico18, servico19;
-    DesligInadimplencia servico20, servico21;
-    LigacaoNova servico22, servico23;
-    Medicao servico24, servico25;
-    ReligacaoPagamento servico26, servico27;
-    TrocaMedidor servico28, servico29;
-
-    fin.cadastrarServico(1, servico18, data_hoje, 2);
-    fin.cadastrarServico(1, servico19, data_amanha, 1);
-    fin.cadastrarServico(1, servico20, data_hoje, 2);
-    fin.cadastrarServico(1, servico21, data_amanha, 1);
-    fin.cadastrarServico(1, servico22, data_hoje, 2);
-    fin.cadastrarServico(1, servico23, data_amanha, 1);
-    fin.cadastrarServico(0, servico24, data_hoje, 2);
-    fin.cadastrarServico(0, servico25, data_amanha, 1);
-    fin.cadastrarServico(1, servico26, data_hoje, 2);
-    fin.cadastrarServico(1, servico27, data_amanha, 1);
-    fin.cadastrarServico(1, servico28, data_hoje, 2);
-    fin.cadastrarServico(1, servico29, data_amanha, 1);
-
-    std::vector<std::reference_wrapper<Funcionario>> funcionarios3(std::ref(fin.getFuncionarios()));
-    funcionarios3[0].get().printAgendaServicos();
-    funcionarios3[1].get().printAgendaServicos();
-
-    std::cout << "Executando servicos do dia: " << data_hoje.getData() << std::endl;
-    fin.executarServicos(0, data_hoje);
-    std::cout << "Executando servicos do dia: " << data_amanha.getData() << std::endl;
-    fin.executarServicos(1, data_amanha);
-
-    std::vector<std::reference_wrapper<Funcionario>> funcionarios4(std::ref(fin.getFuncionarios()));
-    funcionarios4[0].get().printAgendaServicos();
-    funcionarios4[1].get().printAgendaServicos();
-
     Fatura fat1(100, 0, Data(2022, 7, 5, 0, 0, 0), Data(2022, 7, 3, 0, 0, 0), Data(2022, 7, 1, 0, 0, 0));
     Fatura fat2(100, 0, Data(2022, 7, 5, 0, 0, 0), Data(2022, 7, 7, 0, 0, 0), Data(2022, 7, 1, 0, 0, 0));
 
-    fin.cadastrarFaturas(4, 0, fat1);
-    fin.cadastrarFaturas(5, 0, fat2);
+    fin.cadastrarFaturas(2, 0, fat1);
+    fin.cadastrarFaturas(2, 0, fat2);
 
     Data today(2022, 7, 7, 0, 0, 0);
 
@@ -244,9 +184,6 @@ int main() {
     std::cout << "Valor pagamento: R$" << paidValue << std::endl;
 
     fin.verificarInadimplentes(today);
-
-    std::cout << "Fatura6 ID: " << fat1.getIdFatura() << std::endl;
-    std::cout << "Fatura7 ID: " << fat2.getIdFatura() << std::endl;
 
     std::cout << "ID inadimplentes (Cliente - Fatura)" << std::endl;
     for(const auto& inadimplentes : fin.getRelatorioInandimplentes()) {
@@ -256,9 +193,6 @@ int main() {
         }
         std::cout << std::endl;
     }
-
-    std::cout << " " << std::endl;
-    std::cout << " " << std::endl;
 
     //TODO: Registro de log de todas as operações realizadas anteriormente
 
