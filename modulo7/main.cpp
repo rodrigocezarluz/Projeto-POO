@@ -64,13 +64,13 @@ int main() {
     try {
         cl1.setCpf("02062008629");
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     try {
         cl2.setCnpj("46260781000153");
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     //Registro de uma UC que viola as regras de tensão de atendimento
@@ -82,13 +82,13 @@ int main() {
     try {
         u1.setNivelTensao("HT");
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     try {
         u2.setNivelTensao("HT");
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     //Registro de atribuição de um serviço para um funcionário que não pode executar aquele serviço, demonstrando o tratamento da exceção
@@ -132,13 +132,13 @@ int main() {
     try {
         fin.cadastrarServico(3, servico7, data_hoje, 1);
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     try {
         fin.cadastrarServico(2, servico9, data_hoje, 2);
     } catch (Erro &e) {
-        //std::cout << "Erro: " << e.out() << std::endl;
+        e.out();
     }
 
     std::vector<std::reference_wrapper<Funcionario>> funcionarios(fin.getFuncionarios());
