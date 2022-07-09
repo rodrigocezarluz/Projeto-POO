@@ -3,6 +3,7 @@
 //
 
 #include "PessoaJuridica.h"
+#include "Erro.h"
 #include <string>
 #include <vector>
 
@@ -14,7 +15,7 @@ void PessoaJuridica::setCnpj(const std::string &cnpj) {
     if (this->validarCNPJ(cnpj)) {
         CNPJ = cnpj;
     } else {
-        throw std::invalid_argument( "CNPJ invalido." );
+        throw Erro("CNPJ invalido.");
     }
 }
 
