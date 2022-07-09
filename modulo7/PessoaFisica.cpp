@@ -3,6 +3,7 @@
 //
 
 #include "PessoaFisica.h"
+#include "Erro.h"
 #include <string>
 #include <vector>
 
@@ -14,7 +15,7 @@ void PessoaFisica::setCpf(const std::string &cpf) {
     if (this->validarCPF(cpf)) {
         CPF = cpf;
     } else {
-        throw std::invalid_argument( "CPF invalido." );
+        throw Erro("CPF invalido.");
     }
 }
 
