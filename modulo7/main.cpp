@@ -33,6 +33,7 @@
 int main() {
     //TODO: Um usuário logado sendo acessado em duas situações diferentes de maneira a comprovar o comportamento do singleton
     //TODO: Registro de pelo menos uma violação de permissão de acesso pelo usuário logado
+    //TODO: Log de tentativa de acesso do usuario
 
     //3 clientes com UC’s de 3 tipos diferentes
     UCComercial u1;
@@ -75,21 +76,33 @@ int main() {
 
     try {
         cl1.setCpf("02062008629");
-    } catch (std::invalid_argument &e) {
-        std::cout << "Erro: " << e.what() << std::endl;
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
     }
 
     try {
         cl2.setCnpj("46260781000153");
-    } catch (std::invalid_argument &e) {
-        std::cout << "Erro: " << e.what() << std::endl;
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
     }
 
     //Registro de uma UC que viola as regras de tensão de atendimento
     u1.setNivelTensao("BT");
     u2.setNivelTensao("MT");
     u3.setNivelTensao("AT");
-    u4.setNivelTensao("HT");
+    u4.setNivelTensao("AT");
+
+    try {
+        u1.setNivelTensao("HT");
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
+    }
+
+    try {
+        u2.setNivelTensao("HT");
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
+    }
 
     //Registro de atribuição de um serviço para um funcionário que não pode executar aquele serviço, demonstrando o tratamento da exceção
     Data data_hoje = Data::dateNow();
@@ -114,9 +127,7 @@ int main() {
     std::cout << "Adicionando servicos na fila dos funcionarios..." << std::endl;
 
     fin.cadastrarServico(0, servico1, data_hoje, 1);
-    fin.cadastrarServico(1, servico1, data_hoje, 1);//atribuição de um serviço para um funcionário que não pode executar aquele serviço
     fin.cadastrarServico(0, servico2, data_hoje, 2);
-    fin.cadastrarServico(1, servico2, data_hoje, 2);//atribuição de um serviço para um funcionário que não pode executar aquele serviço
     fin.cadastrarServico(0, servico3, data_hoje, 3);
     fin.cadastrarServico(0, servico6, data_hoje, 6);
     fin.cadastrarServico(0, servico4, data_hoje, 4);
@@ -133,6 +144,19 @@ int main() {
     fin.cadastrarServico(0, servico14, data_amanha, 5);
     fin.cadastrarServico(0, servico15, data_amanha, 6);
     fin.cadastrarServico(0, servico16, data_amanha, 9);
+
+    //atribuição de um serviço para um funcionário que não pode executar aquele serviço
+    try {
+        fin.cadastrarServico(1, servico1, data_hoje, 1);
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
+    }
+
+    try {
+        fin.cadastrarServico(1, servico2, data_hoje, 2);
+    } catch (Erro &e) {
+        //std::cout << "Erro: " << e.out() << std::endl;
+    }
 
     std::vector<std::reference_wrapper<Funcionario>> funcionarios(fin.getFuncionarios());
     funcionarios[0].get().printAgendaServicos();
