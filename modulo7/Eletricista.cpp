@@ -3,10 +3,11 @@
 //
 
 #include "Eletricista.h"
+#include "Erro.h"
 
 void Eletricista::verificarServico(Servico &servico) {
     if (servico.getTipoServico() == TipoServico::MEDICAO) {
-        throw std::invalid_argument("O Funcionario nao faz esse tipo de servico.");
+        throw Erro("O Funcionario nao faz esse tipo de servico.");
     }
 }
 
