@@ -16,7 +16,7 @@ class Log {
     std::string LogType;
 protected:
 public:
-    Log(string entidade, Usuario usuario, string logType);
+    Log(std::string entidade, Usuario usuario, string logType);
 
 public:
     Data getData() const;

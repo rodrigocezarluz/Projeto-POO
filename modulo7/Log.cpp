@@ -3,21 +3,12 @@
 
 #include <utility>
 
- Data Log::getData() const {
+Data Log::getData() const {
     return data;
 }
 
 void Log::setData(const Data &data) {
     Log::data = data;
-}
-
-const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &Log::getEntidade() const {
-    return entidade;
-}
-
-void
-Log::setEntidade(const std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> &entidade) {
-    Log::entidade = entidade;
 }
 
 const Usuario &Log::getUsuario() const {
@@ -32,5 +23,13 @@ Log::Log(string entidade, Usuario usuario, string logType) : entidade(std::move(
                                                                                   usuario(std::move(usuario)),
                                                                                   LogType(std::move(logType)) {
     this->data = Data::dateNow();
+}
+
+const string &Log::getEntidade() const {
+    return entidade;
+}
+
+void Log::setEntidade(const string &entidade) {
+    Log::entidade = entidade;
 }
 
