@@ -87,7 +87,7 @@ void Cliente::setUCs(std::vector<UC> &uCs) {
 void Cliente::addUC(UC &new_uc) {
     for (auto &uc : this->UCs) {
         if (uc == new_uc) {
-            throw std::invalid_argument("Repeated UC id");
+            throw Erro("Repeated UC id");
         }
     }
     this->UCs.push_back(new_uc);
@@ -100,7 +100,7 @@ void Cliente::removeUC(UC &remove_uc) {
     this->UCs.erase(std::remove(UCs.begin(), UCs.end(), remove_uc), UCs.end());
 
     if (this->UCs.size() == orig_size) {
-        throw std::invalid_argument( "UC not found." );
+        throw Erro( "UC not found." );
     }
 }
 
@@ -112,7 +112,7 @@ double Cliente::pagar(const int &idFaturaAPagar, const Data &dtPagamento) {
             }
         }
     }
-    throw std::invalid_argument( "Fatura a Pagar nao existe." );
+    throw Erro( "Fatura a Pagar nao existe." );
 }
  
 std::vector<Fatura> Cliente::verificarPagamento() {
