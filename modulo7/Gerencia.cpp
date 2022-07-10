@@ -3,6 +3,7 @@
 //
 
 #include "Gerencia.h"
+#include "Erro.h"
 #include <stdexcept>
 
 Gerencia::Gerencia() {}
@@ -51,7 +52,7 @@ void Gerencia::cadastrarUC(const int &clienteToInsert, UC &uc) {
         }
     }
 
-    throw std::invalid_argument("O cliente da UC nao existe.");
+    throw Erro("O cliente da UC nao existe.");
 }
 
 
@@ -64,7 +65,7 @@ void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) 
         cliente.addFatura(idUC, fatura);
         return;
     }
-    throw std::invalid_argument( "O cliente da UC nao existe." );
+    throw Erro( "O cliente da UC nao existe." );
 }
 
 void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const Data &data, int prioridade_servico) {
@@ -75,7 +76,7 @@ void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, cons
         }
     }
 
-    throw std::invalid_argument("O funcionario nao existe.");
+    throw Erro("O funcionario nao existe.");
 }
 
 void Gerencia::executarServicos(const int &idFuncionario, const Data &data) {
@@ -85,7 +86,7 @@ void Gerencia::executarServicos(const int &idFuncionario, const Data &data) {
             return;
         }
     }
-    throw std::invalid_argument("O funcionario nao existe.");
+    throw Erro("O funcionario nao existe.");
 }
 
 double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPagar, const Data &dtPagamento) {
@@ -94,7 +95,7 @@ double Gerencia::receberPagamento(const int &idCliente, const int &idFaturaAPaga
             return cliente.pagar(idFaturaAPagar, dtPagamento);
         }
     }
-    throw std::invalid_argument("O cliente nao existe.");
+    throw Erro("O cliente nao existe.");
 }
 
 void Gerencia::verificarInadimplentes(Data &now) {
