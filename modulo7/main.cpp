@@ -172,16 +172,13 @@ int main() {
     fin.executarServicos(3, data_hoje);
 
     //Registro de 2 medições de um leiturista com cálculo de duas faturas, sendo uma delas em atraso
-    Fatura fat1(100, 0, Data(2022, 7, 5, 0, 0, 0), 0, Data(2022, 7, 1, 0, 0, 0));
+    Fatura fat1(100, 0, Data(2022, 7, 5, 0, 0, 0), Data(2022, 7, 10, 0, 0, 0), Data(2022, 7, 1, 0, 0, 0));
     Fatura fat2(100, 0, Data(2022, 7, 7, 0, 0, 0), Data(2022, 7, 7, 0, 0, 0), Data(2022, 7, 1, 0, 0, 0));
 
     fin.cadastrarFaturas(2, 0, fat1);
     fin.cadastrarFaturas(2, 0, fat2);
 
     Data today(2022, 7, 7, 0, 0, 0);
-
-    double paidValue = fin.receberPagamento(1, fat1.getIdFatura(), today);
-    std::cout << "Valor pagamento: R$" << paidValue << std::endl;
 
     fin.verificarInadimplentes(today);
 
