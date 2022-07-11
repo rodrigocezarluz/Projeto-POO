@@ -214,7 +214,7 @@ int main() {
     try {
         fin.cadastrarFuncionario(eletricista_negado);
     }
-    catch(const std::exception& e)
+    catch(AcessoNegadoException& e)
     {
         std::cerr << e.what() << '\n' << std::endl;;
     }
