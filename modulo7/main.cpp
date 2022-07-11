@@ -35,6 +35,25 @@ int main() {
     //TODO: Registro de pelo menos uma violação de permissão de acesso pelo usuário logado
     //TODO: Log de tentativa de acesso do usuario
 
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    Usuario usuario;
+    usuario.setNome("Mario Campos");
+
+    usuario_logado->login(usuario);
+    std::cout << "\nID do Usuario Logado: " << usuario_logado->getUsuario().getIdUsuario() << std::endl;
+
+    UsuarioLogado* novo_usuario_logado = UsuarioLogado::GetInstance();
+    std::cout << "\nID do Usuario Logado (segundo acesso): " << usuario_logado->getUsuario().getIdUsuario() << "\n" << std::endl;
+
+    try
+    {
+        throw AcessoNegadoException("Funcionalidade", usuario_logado->getUsuario());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n' << std::endl;;
+    }
+
     //3 clientes com UC’s de 3 tipos diferentes
     UCComercial u1;
     UCResidencial u2;
