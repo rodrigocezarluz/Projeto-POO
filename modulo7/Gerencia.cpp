@@ -37,14 +37,53 @@ void Gerencia::setFuncionarios(const vector<std::reference_wrapper<Funcionario>>
 }
 
 void Gerencia::cadastrarCliente(Cliente &cliente) {
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    std::vector<std::reference_wrapper<Permissao>> permissoes =  usuario_logado->getUsuario().getPermissoes();
+
+    bool negado = true;
+    for (auto& perm: permissoes){
+        if (perm.get() == Permissao::Administrator) {
+            negado = false;
+        }
+    }
+    if (negado) {
+        throw AcessoNegadoException("cadastrarCliente", usuario_logado->getUsuario());
+    }
+
     this->clientes.push_back(cliente);
 }
 
 void Gerencia::cadastrarFuncionario(Funcionario &funcionario) {
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    std::vector<std::reference_wrapper<Permissao>> permissoes =  usuario_logado->getUsuario().getPermissoes();
+
+    bool negado = true;
+    for (auto& perm: permissoes){
+        if (perm.get() == Permissao::Administrator) {
+            negado = false;
+        }
+    }
+    if (negado) {
+        throw AcessoNegadoException("cadastrarFuncionario", usuario_logado->getUsuario());
+    }
+    
     this->funcionarios.push_back(funcionario);
 }
 
 void Gerencia::cadastrarUC(const int &clienteToInsert, UC &uc) {
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    std::vector<std::reference_wrapper<Permissao>> permissoes =  usuario_logado->getUsuario().getPermissoes();
+
+    bool negado = true;
+    for (auto& perm: permissoes){
+        if (perm.get() == Permissao::Administrator) {
+            negado = false;
+        }
+    }
+    if (negado) {
+        throw AcessoNegadoException("cadastrarUC", usuario_logado->getUsuario());
+    }
+
     for (auto &cliente : this->clientes) {
         if (cliente.getIdCliente() == clienteToInsert){
             cliente.addUC(uc);
@@ -57,6 +96,18 @@ void Gerencia::cadastrarUC(const int &clienteToInsert, UC &uc) {
 
 
 void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) {
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    std::vector<std::reference_wrapper<Permissao>> permissoes =  usuario_logado->getUsuario().getPermissoes();
+
+    bool negado = true;
+    for (auto& perm: permissoes){
+        if (perm.get() == Permissao::Administrator) {
+            negado = false;
+        }
+    }
+    if (negado) {
+        throw AcessoNegadoException("cadastrarFaturas", usuario_logado->getUsuario());
+    }
 
     for (auto &cliente : this->clientes) {
         if (cliente.getIdCliente() != idCliente) {
@@ -69,6 +120,19 @@ void Gerencia::cadastrarFaturas(const int &idCliente, int idUC, Fatura& fatura) 
 }
 
 void Gerencia::cadastrarServico(const int &idFuncionario, Servico &servico, const Data &data, int prioridade_servico) {
+    UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
+    std::vector<std::reference_wrapper<Permissao>> permissoes =  usuario_logado->getUsuario().getPermissoes();
+
+    bool negado = true;
+    for (auto& perm: permissoes){
+        if (perm.get() == Permissao::Administrator) {
+            negado = false;
+        }
+    }
+    if (negado) {
+        throw AcessoNegadoException("cadastrarServico", usuario_logado->getUsuario());
+    }
+
     for (auto &funcionario : this->funcionarios) {
         if (funcionario.get().getIDFuncionario() == idFuncionario){
             funcionario.get().adicionarServico(servico, data, prioridade_servico);

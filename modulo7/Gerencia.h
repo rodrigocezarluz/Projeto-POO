@@ -12,6 +12,8 @@
 #include "Fatura.h"
 #include "Servico.h"
 #include "Data.h"
+#include "UsuarioLogado.h"
+#include "AcessoNegadoException.h"
 
 class Gerencia {
 private:

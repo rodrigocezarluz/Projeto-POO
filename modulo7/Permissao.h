@@ -7,7 +7,7 @@
 
 
 enum class Permissao {
-
+    Administrator, CommonUser
 };
 
 

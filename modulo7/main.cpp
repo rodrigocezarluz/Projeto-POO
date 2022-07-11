@@ -31,28 +31,19 @@
 #include "UsuarioLogado.h"
 
 int main() {
-    //TODO: Um usuário logado sendo acessado em duas situações diferentes de maneira a comprovar o comportamento do singleton
-    //TODO: Registro de pelo menos uma violação de permissão de acesso pelo usuário logado
     //TODO: Log de tentativa de acesso do usuario
 
     UsuarioLogado* usuario_logado = UsuarioLogado::GetInstance();
-    Usuario usuario;
-    usuario.setNome("Mario Campos");
+
+    Permissao adm_perm = Permissao::Administrator;
+    std::vector<std::reference_wrapper<Permissao>> permissoesUsuario {adm_perm};
+    Usuario usuario("Mario Campos", permissoesUsuario);
 
     usuario_logado->login(usuario);
     std::cout << "\nID do Usuario Logado: " << usuario_logado->getUsuario().getIdUsuario() << std::endl;
 
     UsuarioLogado* novo_usuario_logado = UsuarioLogado::GetInstance();
     std::cout << "\nID do Usuario Logado (segundo acesso): " << usuario_logado->getUsuario().getIdUsuario() << "\n" << std::endl;
-
-    try
-    {
-        throw AcessoNegadoException("Funcionalidade", usuario_logado->getUsuario());
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n' << std::endl;;
-    }
 
     //3 clientes com UC’s de 3 tipos diferentes
     UCComercial u1;
@@ -208,6 +199,24 @@ int main() {
             std::cout << count.getIdFatura() << " ";
         }
         std::cout << std::endl;
+    }
+
+    UsuarioLogado* usuario_logado_negado = UsuarioLogado::GetInstance();
+
+    Permissao commom_perm = Permissao::CommonUser;
+    std::vector<std::reference_wrapper<Permissao>> permissoesUsuario_negado {commom_perm};
+    Usuario usuario_negado("Rogerio Campos", permissoesUsuario_negado);
+
+    usuario_logado_negado->login(usuario_negado);
+
+    Eletricista eletricista_negado("Roberto Carlos"); 
+
+    try {
+        fin.cadastrarFuncionario(eletricista_negado);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n' << std::endl;;
     }
 
     //TODO: Registro de log de todas as operações realizadas anteriormente
